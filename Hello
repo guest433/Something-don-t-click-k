@@ -3,7 +3,7 @@ local Window = Library.CreateLib("itzm hub", "Synapse")
 
 -- Tabs
 local Home = Window:NewTab("Home")
-local HomeSection = Home:NewSection("Home")local L
+local HomeSection = Home:NewSection("Home")
 
 
 
