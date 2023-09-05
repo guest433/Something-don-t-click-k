@@ -1,0 +1,123 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("itzm hub", "Synapse"
+
+-- Tabs
+local Home = Window:NewTab("Home")
+local HomeSection = Home:NewSection("Home")local L
+
+
+
+
+local Script= Window:NewTab("Script")
+local ScriptSection = Script:NewSection("Script")
+
+
+local games = Window:NewTab("games")
+local gamesSection = games:NewSection("games")
+
+
+
+
+local gamesSection = games:NewSection("A")
+local gamesSection = games:NewSection("B")
+local gamesSection = games:NewSection("C")
+local gamesSection = games:NewSection("D")
+gamesSection:NewButton("Da hood", "ButtonInfo", function()
+    print("Clicked")
+end)
+local gamesSection = games:NewSection("E")
+local gamesSection = games:NewSection("F")
+local gamesSection = games:NewSection("G")
+local gamesSection = games:NewSection("H")
+local gamesSection = games:NewSection("I")
+local gamesSection = games:NewSection("J")
+local gamesSection = games:NewSection("K")
+local gamesSection = games:NewSection("L")
+local gamesSection = games:NewSection("M")
+local gamesSection = games:NewSection("N")
+local gamesSection = games:NewSection("O")
+local gamesSection = games:NewSection("P")
+gamesSection:NewButton("prison  Life", "ButtonInfo", function()
+ loadstring(game:HttpGet('https://raw.githubusercontent.com/H17S32/Tiger_Admin/main/Script'))() 
+end)
+local gamesSection = games:NewSection("Q")
+local gamesSection = games:NewSection("R")
+local gamesSection = games:NewSection("X")
+local gamesSection = games:NewSection("T")
+local gamesSection = games:NewSection("U")
+local gamesSection = games:NewSection("V")
+local gamesSection = games:NewSection("W") 
+local gamesSection = games:NewSection("Y")
+local gamesSection = games:NewSection("Z")
+
+HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+Section:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+Section:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+Section:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+local ScriptSection = Script:NewSection("Script")
+
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
