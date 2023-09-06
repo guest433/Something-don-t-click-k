@@ -50,6 +50,27 @@ local gamesSection = games:NewSection("W")
 local gamesSection = games:NewSection("Y")
 local gamesSection = games:NewSection("Z")
 
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+
+
+
 HomeSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
@@ -71,42 +92,21 @@ end)
 
 
 
-HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+ScritSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
 
 
 
-HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
 
 
 
-HomeSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
-end)
-
-
-
-
-Section:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
-end)
-
-
-
-
-Section:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
-end)
-
-
-
-
-Section:NewButton("ButtonText", "ButtonInfo", function()
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
