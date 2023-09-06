@@ -57,14 +57,14 @@ end)
 
 
 
-HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
 
 
 
-HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
