@@ -1,15 +1,20 @@
 local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
 local Window = Library.CreateLib("itzm hub", "Synapse")
 
--- Tabs
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
+-- tabs
 
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
 local Scrip2t= Window:NewTab("hubs")
 local Script2Section = Script:NewSection("hubs")
+
+Script2Section:NewButton("arch hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
+end)
+
 
 Script2Section:NewButton("gigachad hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
@@ -96,36 +101,21 @@ ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
-
-
-
-HomeSection:NewButton("ButtonText", "ButtonInfo", function()
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
-
-
-
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
-
-
-
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
-
-
-
 
 ScritSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
-
-
-
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
@@ -139,14 +129,9 @@ tab3Section:NewButton("dex explorer", "idk i forgot", function()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 
-
-
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
-
-
-
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
