@@ -35,19 +35,25 @@ Script2Section:NewButton("version hub", "", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
 end)
 
+local Script3= Window:NewTab("others")
+local Script3Section = Script3:NewSection("others")
+
 
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
 
 
 
-
+-- script
 local gamesSection = games:NewSection("A")
+gamesSection:NewButton("Ability wars", "", function()
+    print("Clicked")
+end)
 local gamesSection = games:NewSection("B")
 local gamesSection = games:NewSection("C")
 local gamesSection = games:NewSection("D")
 gamesSection:NewButton("Da hood", "ButtonInfo", function()
-    print("Clicked")
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SwagModeV002'))()
 end)
 local gamesSection = games:NewSection("E")
 local gamesSection = games:NewSection("F")
@@ -73,6 +79,10 @@ local gamesSection = games:NewSection("V")
 local gamesSection = games:NewSection("W") 
 local gamesSection = games:NewSection("Y")
 local gamesSection = games:NewSection("Z")
+
+Script3Section:NewButton("stream sniper", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
+end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
