@@ -15,7 +15,6 @@ Script2Section:NewButton("arch hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
 end)
 
-
 Script2Section:NewButton("gigachad hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
 end)
