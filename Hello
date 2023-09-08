@@ -15,24 +15,24 @@ local Scrip2t= Window:NewTab("hubs")
 local Script2Section = Script:NewSection("hubs")
 
 
-Script2Section:NewButton("arch hub", "arch hub ofc", function()
+Script2Section:NewButton("arch hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
 end)
 
-Script2Section:NewButton("arch hub", "arch hub ofc", function()
+Script2Section:NewButton("arch hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
 end)
 
-Script2Section:NewButton("arch hub", "arch hub ofc", function()
+Script2Section:NewButton("arch hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
 end)
 
-Script2Section:NewButton("arch hub", "arch hub ofc", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
+Script2Section:NewButton("gigachad hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
 end)
 
-Script2Section:NewButton("arch hub", "arch hub ofc", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
+Script2Section:NewButton("version hub", "", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
 end)
 
 
