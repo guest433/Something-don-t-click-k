@@ -8,7 +8,7 @@ local HomeSection = Home:NewSection("Home")
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
-local Scrip2t= Window:NewTab("hubs")
+local Script2= Window:NewTab("hubs")
 local Script2Section = Script:NewSection("hubs")
 
 Script2Section:NewButton("arch hub", "", function()
@@ -31,11 +31,11 @@ local tab3Section = tab3:NewSection("smth")
 
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
-
 local gamesSection = games:NewSection("A")
 gamesSection:NewButton("Ability wars", "", function()
     loadstring(game:HttpGet(,https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
 end)
+
 local gamesSection = games:NewSection("B")
 gamesSection:NewButton("Blox fruit hoho hub have to get key", "", function()
     _G.HohoVersion = "v3"
@@ -135,7 +135,6 @@ end)
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
-local ScriptSection = Script:NewSection("Script")
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
