@@ -41,14 +41,6 @@ local Script3Section = Script3:NewSection("others")
 local tab3= Window:NewTab("how to get started at at you own hub")
 local tab3Section = tab3:NewSection("smth")
 
-tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
-end)
-
-tab3Section:NewButton("dex explorer", "idk i forgot", function()
-    print("Clicked")
-end)
-
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
 
@@ -165,6 +157,13 @@ ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
+tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
+end)
+
+tab3Section:NewButton("dex explorer", "idk i forgot", function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 
 
 
