@@ -47,9 +47,34 @@ local gamesSection = games:NewSection("games")
 -- script
 local gamesSection = games:NewSection("A")
 gamesSection:NewButton("Ability wars", "", function()
-    print("Clicked")
+    loadstring(game:HttpGet(,https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
 end)
 local gamesSection = games:NewSection("B")
+
+gamesSection:NewButton("Blox fruit hoho hub have to get key", "", function()
+    print("Clicked")
+end)
+
+gamesSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+gamesSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+gamesSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+gamesSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+gamesSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
 local gamesSection = games:NewSection("C")
 local gamesSection = games:NewSection("D")
 gamesSection:NewButton("Da hood", "ButtonInfo", function()
