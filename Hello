@@ -56,12 +56,12 @@ gamesSection:NewButton("Blox fruit hoho hub have to get key", "", function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
 end)
 
-gamesSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
+gamesSection:NewButton("uranium hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
 end)
 
-gamesSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
+gamesSection:NewButton("pado hub", "", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/REWzaKunGz1/premium/main/PadoHub'))()
 end)
 
 gamesSection:NewButton("ButtonText", "ButtonInfo", function()
