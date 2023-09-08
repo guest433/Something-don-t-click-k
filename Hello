@@ -18,11 +18,9 @@ end)
 Script2Section:NewButton("gigachad hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
 end)
-
 Script2Section:NewButton("version hub", "", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
 end)
-
 local Script3= Window:NewTab("others")
 local Script3Section = Script3:NewSection("others")
 
