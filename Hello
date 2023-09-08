@@ -26,8 +26,8 @@ end)
 local Script3= Window:NewTab("others")
 local Script3Section = Script3:NewSection("others")
 
-local tab3= Window:NewTab("how to get started at at you own hub")
-local tab3Section = tab3:NewSection("smth")
+local Tab3= Window:NewTab("make your own hub")
+local Tab3Section = Tab3:NewSection("smth")
 
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
@@ -115,11 +115,12 @@ ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
-tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
+Tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 end)
 
-ScriptSection:NewButton("dark dex", "", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+Tab3Section:NewButton("dark dex", "", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
