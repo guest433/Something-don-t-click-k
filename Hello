@@ -9,7 +9,7 @@ local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
 local Script2= Window:NewTab("hubs")
-local Script2Section = Script:NewSection("hubs")
+local Script2Section = Script2:NewSection("hubs")
 
 Script2Section:NewButton("arch hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
@@ -35,25 +35,20 @@ local gamesSection = games:NewSection("A")
 gamesSection:NewButton("Ability wars", "", function()
     loadstring(game:HttpGet(,https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
 end)
-
 local gamesSection = games:NewSection("B")
 gamesSection:NewButton("Blox fruit hoho hub have to get key", "", function()
     _G.HohoVersion = "v3"
 loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
 end)
-
 gamesSection:NewButton("uranium hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
 end)
-
 gamesSection:NewButton("pado hub", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/REWzaKunGz1/premium/main/PadoHub'))()
 end)
-
 gamesSection:NewButton("idk", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/AXCScript/KayMobile/main/Script-Loader'))()
 end)
-
 local gamesSection = games:NewSection("C")
 local gamesSection = games:NewSection("D")
 gamesSection:NewButton("Da hood", "ButtonInfo", function()
