@@ -33,7 +33,7 @@ local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
 local gamesSection = games:NewSection("A")
 gamesSection:NewButton("Ability wars", "", function()
-    loadstring(game:HttpGet(,https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
 end)
 local gamesSection = games:NewSection("B")
 gamesSection:NewButton("Blox fruit hoho hub have to get key", "", function()
@@ -119,12 +119,7 @@ tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sor
     loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 end)
 
-tab3Section:NewButton("dex explorer", "idk i forgot", function()
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
-
-ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
+ScriptSection:NewButton("dark dex", "", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
