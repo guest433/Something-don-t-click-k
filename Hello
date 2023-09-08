@@ -4,7 +4,6 @@ local Window = Library.CreateLib("itzm hub", "Synapse")
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
 -- tabs
-
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
