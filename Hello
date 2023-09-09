@@ -5,6 +5,18 @@ local Window = Library.CreateLib("itzm hub", "Synapse")
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
 
+HomeSection:NewButton("Rejoin", "ButtonInfo", function()
+    game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+end)
+
+local HomeSection = Home:NewSection("coming soon")
+
+local HomeSection = Home:NewSection("coming soon")
+
+local HomeSection = Home:NewSection("coming soon")
+
+local HomeSection = Home:NewSection("coming soon")
+
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
@@ -74,16 +86,20 @@ local gamesSection = games:NewSection("M")
 local gamesSection = games:NewSection("N")
 local gamesSection = games:NewSection("O")
 local gamesSection = games:NewSection("P")
-gamesSection:NewButton("prison  Life", "ButtonInfo", function()
+gamesSection:NewButton("prison  Life", "", function()
  loadstring(game:HttpGet('https://raw.githubusercontent.com/H17S32/Tiger_Admin/main/Script'))() 
 end)
 local gamesSection = games:NewSection("Q")
 local gamesSection = games:NewSection("R")
-local gamesSection = games:NewSection("X")
+local gamesSection = games:NewSection("S")
+gamesSection:NewButton("slap battles", "", function()
+    print("Clicked")
+end)
 local gamesSection = games:NewSection("T")
 local gamesSection = games:NewSection("U")
 local gamesSection = games:NewSection("V")
 local gamesSection = games:NewSection("W") 
+local gamesSection = games:NewSection("X")
 local gamesSection = games:NewSection("Y")
 local gamesSection = games:NewSection("Z")
 
