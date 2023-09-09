@@ -143,7 +143,7 @@ local Script3= Window:NewTab("others")
 local Script3Section = Script3:NewSection("others")
 
 Script3Section:NewButton("keyboard", "", function()
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/manimcool21/Keyboard-FE/main/Protected%20(3).lua'),true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
 end)
 
 Script3Section:NewButton("stream sniper", "", function()
