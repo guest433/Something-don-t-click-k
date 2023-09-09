@@ -105,7 +105,6 @@ gamesSection:NewButton("slap battles", "", function()
 ]]
 loadstring(game:HttpGet("https://raw.githubusercontent.com/dizyhvh/slap_battles_gui/main/0.lua"))()
 end)
-
 gamesSection:NewButton("slap battles second script", "", function()
     loadstring(game:HttpGet(("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Slap%20Battles")))()
 end)
