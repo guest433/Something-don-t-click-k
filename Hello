@@ -50,9 +50,6 @@ UIS.InputEnded:connect(function(UserInput)
 	end
     end)
 end)
-
-
-
 local Script2= Window:NewTab("hubs")
 local Script2Section = Script2:NewSection("hubs")
 
