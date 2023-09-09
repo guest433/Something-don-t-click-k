@@ -20,29 +20,40 @@ local HomeSection = Home:NewSection("coming soon")
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
-local Script3= Window:NewTab("player")
-local Script3Section = Script3:NewSection("player")
+local Script4= Window:NewTab("player")
+local Script4Section = Script4:NewSection("player")
 
 Script3Section:NewButton("gaming hub fly", "this is a copy rigthed", function()
     loadstring(game:HttpGet('https://pastebin.com/raw/V5xp9qhJ'))()
 end)
 
-Script3Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+Script4Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
 end)
 
-Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
+Script4Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
 
-Script3Section:NewToggle("ToggleText", "ToggleInfo", function(state)
-    if state then
-        print("game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1")
-    else
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-    end
+Script4Section:NewButton("advance walkpower", "click left shift", function()
+    --Skid this shut as much as u want lmao
+local Player = game:GetService'Players'.LocalPlayer;
+local UIS = game:GetService'UserInputService';
+UIS.InputBegan:connect(function(UserInput)
+	if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.LeftShift then
+	    _G.Running = true
+		while wait(0.005) and _G.Running == true do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
+end
+	end
+end)
+UIS.InputEnded:connect(function(UserInput)
+	if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.LeftShift then
+		_G.Running = false
+	end
+end)
 end)
 
 local Script2= Window:NewTab("hubs")
@@ -134,6 +145,9 @@ local gamesSection = games:NewSection("X")
 local gamesSection = games:NewSection("Y")
 local gamesSection = games:NewSection("Z")
 
+Script3Section:NewButton("keyboard", "", function()
+    print(coming soon)
+end)
 Script3Section:NewButton("stream sniper", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
 end)
