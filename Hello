@@ -31,8 +31,18 @@ Script3Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
 end)
 
-Script3Section:NewSlider("JumpPower", "SliderInfo", 500, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
+Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+Script3Section:NewToggle("ToggleText", "ToggleInfo", function(state)
+    if state then
+        print("game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1")
+    else
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    end
 end)
 
 local Script2= Window:NewTab("hubs")
