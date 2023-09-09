@@ -20,49 +20,6 @@ local HomeSection = Home:NewSection("coming soon")
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
-local Script3= Window:NewTab("player")
-local Script3Section = Script3:NewSection("player")
-Script3Section:NewButton("gaming hub fly", "this is a copy rigthed", function()
-    loadstring(game:HttpGet('https://pastebin.com/raw/V5xp9qhJ'))()
-end)
-
-local Script2= Window:NewTab("hubs")
-local Script2Section = Script2:NewSection("hubs")
-
-Script2Section:NewButton("arch hub", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
-end)
-
-Script2Section:NewButton("gigachad hub", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
-end)
-
-Script2Section:NewButton("version hub", "", function()
-    loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
-end)
-
-local Script3= Window:NewTab("others")
-local Script3Section = Script3:NewSection("others")
-
-Script3Section:NewButton("keyboard", "", function()
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/manimcool21/Keyboard-FE/main/Protected%20(3).lua'),true))()
-end)
-
-Script3Section:NewButton("stream sniper", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
-end)
-
-local Tab3= Window:NewTab("make your own hub")
-local Tab3Section = Tab3:NewSection("smth")
-
-Tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
-end)
-
-Tab3Section:NewButton("dark dex", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
-end)
-
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
 local gamesSection = games:NewSection("A")
@@ -123,6 +80,50 @@ local gamesSection = games:NewSection("X")
 local gamesSection = games:NewSection("Y")
 local gamesSection = games:NewSection("Z")
 
+local Script2= Window:NewTab("hubs")
+local Script2Section = Script2:NewSection("hubs")
+
+Script2Section:NewButton("arch hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
+end)
+
+Script2Section:NewButton("gigachad hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
+end)
+
+Script2Section:NewButton("version hub", "", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
+end)
+
+local Script3= Window:NewTab("player")
+local Script3Section = Script3:NewSection("player")
+Script3Section:NewButton("gaming hub fly", "this is a copy rigthed", function()
+    loadstring(game:HttpGet('https://pastebin.com/raw/V5xp9qhJ'))()
+end)
+
+local Tab3= Window:NewTab("make your own hub")
+local Tab3Section = Tab3:NewSection("smth")
+
+Tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
+end)
+
+Tab3Section:NewButton("dark dex", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+end)
+
+
+local Script3= Window:NewTab("others")
+local Script3Section = Script3:NewSection("others")
+
+Script3Section:NewButton("keyboard", "", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/manimcool21/Keyboard-FE/main/Protected%20(3).lua'),true))()
+end)
+
+Script3Section:NewButton("stream sniper", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
+end)
+
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
@@ -169,8 +170,4 @@ end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
-end)
-
-Script3Section:NewButton("gaming hub fly", "this is a copy rigthed", function()
-    loadstring(game:HttpGet('https://pastebin.com/raw/V5xp9qhJ'))()
 end)
