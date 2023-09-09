@@ -23,6 +23,10 @@ local ScriptSection = Script:NewSection("Script")
 local Script3= Window:NewTab("player")
 local Script3Section = Script3:NewSection("player")
 
+Script3Section:NewButton("gaming hub fly", "this is a copy rigthed", function()
+    loadstring(game:HttpGet('https://pastebin.com/raw/V5xp9qhJ'))()
+end)
+
 local Script2= Window:NewTab("hubs")
 local Script2Section = Script2:NewSection("hubs")
 
@@ -96,7 +100,10 @@ local gamesSection = games:NewSection("Q")
 local gamesSection = games:NewSection("R")
 local gamesSection = games:NewSection("S")
 gamesSection:NewButton("slap battles", "", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/guest433/Somethingidkdkd/main/Ifm'))()
+    --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dizyhvh/slap_battles_gui/main/0.lua"))()
 end)
 local gamesSection = games:NewSection("T")
 local gamesSection = games:NewSection("U")
