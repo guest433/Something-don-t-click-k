@@ -108,7 +108,7 @@ Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
 
-local Toggle = Script3Section:NewToggle("advance speedwalking", function(state)
+Script3Section:NewToggle("advance speedwalking", "", function(state)
     if state then
         _G.Running = true
         RunMovement()
