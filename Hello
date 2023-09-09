@@ -146,7 +146,7 @@ local gamesSection = games:NewSection("Y")
 local gamesSection = games:NewSection("Z")
 
 Script3Section:NewButton("keyboard", "", function()
-    print(coming soon)
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/manimcool21/Keyboard-FE/main/Protected%20(3).lua'),true))()
 end)
 Script3Section:NewButton("stream sniper", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
