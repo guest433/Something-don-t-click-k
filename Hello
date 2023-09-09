@@ -108,7 +108,7 @@ Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
 
-Script3Section:NewButton("advance walkpower L to turn on and ", "Left shift to turn off", function()
+Script3Section:NewButton("advance walkpower L to turn on and ", "Left shift to turn offg", function()
 local Player = game:GetService'Players'.LocalPlayer;
 local UIS = game:GetService'UserInputService';
 UIS.InputBegan:connect(function(UserInput)
