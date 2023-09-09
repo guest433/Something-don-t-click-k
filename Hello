@@ -108,11 +108,11 @@ Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
 
-Script3Section:NewButton("advance walkpower", "click left shift", function()
+Script3Section:NewButton("advance walkpower", "click L", function()
 local Player = game:GetService'Players'.LocalPlayer;
 local UIS = game:GetService'UserInputService';
 UIS.InputBegan:connect(function(UserInput)
-	if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.LeftShift then
+	if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.L then
 	    _G.Running = true
 		while wait(0.005) and _G.Running == true do
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 1
@@ -121,7 +121,7 @@ end
 	end
 end)
 UIS.InputEnded:connect(function(UserInput)
-	if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.LeftShift then
+	if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.L then
 		_G.Running = false
 	end
     end)
