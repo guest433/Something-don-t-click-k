@@ -1,45 +1,54 @@
 local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
 local Window = Library.CreateLib("itzm hub", "Synapse")
 
--- tabs
+-- Tabs
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
+
+local Player = game.Players.LocalPlayer
 
 local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
 local playerNameLabel = HomeSection:NewLabel("Player Name: " .. Player.Name)
 local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.DisplayName)
+local fpsLabel = HomeSection:NewLabel("FPS: Calculating...")
 
 local function updatePlayerInfo()
+    -- Update player information
     playerIdLabel:UpdateText("Player ID: " .. Player.UserId)
     playerNameLabel:UpdateText("Player Name: " .. Player.Name)
     displayNameLabel:UpdateText("Display Name: " .. Player.DisplayName)
 
+    -- Update FPS
     local success, fpsInfo = pcall(function()
         return game:GetService("Stats"):GetFPS()
     end)
-  
-    local fpsLabel = HomeSection:NewLabel("FPS: Calculating...")
-    if not success or fpsInfo == nil then
+
+    if success and fpsInfo ~= nil then
+        local fps = math.floor(fpsInfo)
+        local targetFps = math.floor(fpsInfo * 100 + 0.5) / 100
+        fpsLabel:UpdateText("FPS: " .. fps .. " (Target: " .. targetFps .. ")")
+    else
         fpsLabel:UpdateText("FPS: Error")
-        return -- Stop execution if there is an error
     end
-    
-    local playerCountLabel = HomeSection:NewLabel("Player Count: Calculating...")
-    local playerCount = #game.Players:GetPlayers()
-    if playerCount == nil then
-        playerCountLabel:UpdateText("Player Count: Error")
-        return -- Stop execution if there is an error
+
+    -- Update player count
+    local playerCountLabel = HomeSection:FindLabel("Player Count:")
+    if playerCountLabel then
+        local success, playerCount = pcall(function()
+            return #game.Players:GetPlayers()
+        end)
+
+        if success and playerCount ~= nil then
+            playerCountLabel:UpdateText("Player Count: " .. playerCount)
+        else
+            playerCountLabel:UpdateText("Player Count: Error")
+        end
     end
-    
-    local fps = math.floor(fpsInfo)
-    local targetFps = math.floor(fpsInfo * 100 + 0.5) / 100
-    fpsLabel:UpdateText("FPS: " .. fps .. " (Target: " .. targetFps .. ")")
-    playerCountLabel:UpdateText("Player Count: " .. playerCount)
 end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
 
-HomeSection:NewButton("Rejoin", "this is an advance rejoin even how many times you rejoin you always gonna join the same server i use the other rejoin system and it didn't rejoin me back to the server sometimes it rejoins you sometime s not", function()
+HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     local function rejoinPlayer(player)
         local success, errorMessage = pcall(function()
             game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
@@ -57,14 +66,12 @@ HomeSection:NewButton("Rejoin", "this is an advance rejoin even how many times y
     end
 end)
 
-local Player = game.Players.LocalPlayer
-
-local function clearLabels()
-    HomeSection:Clear()
-end
-
 HomeSection:NewButton("Clear Labels", "Resets the labels", function()
-    clearLabels()
+    playerIdLabel:UpdateText("Player ID: ")
+    playerNameLabel:UpdateText("Player Name: ")
+    displayNameLabel:UpdateText("Display Name: ")
+    fpsLabel:UpdateText("FPS: ")
+    HomeSection:RemoveLabel("Player Count:")
 end)
 
 print("Code has been executed successfully!")
