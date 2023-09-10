@@ -5,26 +5,6 @@ local Window = Library.CreateLib("itzm hub", "Synapse")
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
 
-HomeSection:NewButton("Rejoin", "", function()
-    local function rejoinPlayer(player)
-        local success, errorMessage = pcall(function()
-            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
-        end)
-
-        if not success then
-            warn("Failed to rejoin player:", errorMessage)
-        end
-    end
-
-    for _, player in ipairs(game.Players:GetPlayers()) do
-        if player.UserId > 0 then
-            rejoinPlayer(player)
-        end
-    end
-end)
-
-local Player = game.Players.LocalPlayer
-
 local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
 local playerNameLabel = HomeSection:NewLabel("Player Name: " .. Player.Name)
 local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.DisplayName)
@@ -58,6 +38,26 @@ local function updatePlayerInfo()
 end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
+
+HomeSection:NewButton("Rejoin", "this is an advance rejoin even how many times you rejoin you always gonna join the same server i use the other rejoin system and it didn't rejoin me back to the server sometimes it rejoins you sometime s not", function()
+    local function rejoinPlayer(player)
+        local success, errorMessage = pcall(function()
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
+        end)
+
+        if not success then
+            warn("Failed to rejoin player:", errorMessage)
+        end
+    end
+
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player.UserId > 0 then
+            rejoinPlayer(player)
+        end
+    end
+end)
+
+local Player = game.Players.LocalPlayer
 
 local function clearLabels()
     HomeSection:Clear()
@@ -178,6 +178,8 @@ function RunMovement()
         if humanoidRootPart then
             local forwardDirection = humanoidRootPart.CFrame.lookVector
             Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
         end
         wait()
     end
@@ -204,14 +206,6 @@ local Script3Section = Script3:NewSection("others")
 
 Script3Section:NewButton("keyboard", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
-end)
-
-Script3Section:NewButton("stream sniper", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
-end)
-
-ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
 end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
