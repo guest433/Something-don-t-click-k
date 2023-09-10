@@ -5,8 +5,22 @@ local Window = Library.CreateLib("itzm hub", "Synapse")
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
 
-HomeSection:NewButton("Rejoin", "ButtonInfo", function()
-    game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+HomeSection:NewButton("Rejoin", "", function()
+    local function rejoinPlayer(player)
+        local success, errorMessage = pcall(function()
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
+        end)
+
+        if not success then
+            warn("Failed to rejoin player:", errorMessage)
+        end
+    end
+
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player.UserId > 0 then
+            rejoinPlayer(player)
+        end
+    end
 end)
 
 local Player = game.Players.LocalPlayer
