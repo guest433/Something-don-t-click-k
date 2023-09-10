@@ -9,13 +9,51 @@ HomeSection:NewButton("Rejoin", "ButtonInfo", function()
     game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
 end)
 
-local HomeSection = Home:NewSection("coming soon")
+local Player = game.Players.LocalPlayer
 
-local HomeSection = Home:NewSection("coming soon")
+local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
+local playerNameLabel = HomeSection:NewLabel("Player Name: " .. Player.Name)
+local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.DisplayName)
 
-local HomeSection = Home:NewSection("coming soon")
+local function updatePlayerInfo()
+    playerIdLabel:UpdateText("Player ID: " .. Player.UserId)
+    playerNameLabel:UpdateText("Player Name: " .. Player.Name)
+    displayNameLabel:UpdateText("Display Name: " .. Player.DisplayName)
 
-local HomeSection = Home:NewSection("coming soon")
+    local success, fpsInfo = pcall(function()
+        return game:GetService("Stats"):GetFPS()
+    end)
+  
+    local fpsLabel = HomeSection:NewLabel("FPS: Calculating...")
+    if not success or fpsInfo == nil then
+        fpsLabel:UpdateText("FPS: Error")
+        return -- Stop execution if there is an error
+    end
+    
+    local playerCountLabel = HomeSection:NewLabel("Player Count: Calculating...")
+    local playerCount = #game.Players:GetPlayers()
+    if playerCount == nil then
+        playerCountLabel:UpdateText("Player Count: Error")
+        return -- Stop execution if there is an error
+    end
+    
+    local fps = math.floor(fpsInfo)
+    local targetFps = math.floor(fpsInfo * 100 + 0.5) / 100
+    fpsLabel:UpdateText("FPS: " .. fps .. " (Target: " .. targetFps .. ")")
+    playerCountLabel:UpdateText("Player Count: " .. playerCount)
+end
+
+game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
+
+local function clearLabels()
+    HomeSection:Clear()
+end
+
+HomeSection:NewButton("Clear Labels", "Resets the labels", function()
+    clearLabels()
+end)
+
+print("Code has been executed successfully!")
 
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
