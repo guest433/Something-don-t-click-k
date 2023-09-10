@@ -10,40 +10,12 @@ local Player = game.Players.LocalPlayer
 local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
 local playerNameLabel = HomeSection:NewLabel("Player Name: " .. Player.Name)
 local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.DisplayName)
-local fpsLabel = HomeSection:NewLabel("FPS: Calculating...")
 
 local function updatePlayerInfo()
     -- Update player information
     playerIdLabel:UpdateText("Player ID: " .. Player.UserId)
     playerNameLabel:UpdateText("Player Name: " .. Player.Name)
     displayNameLabel:UpdateText("Display Name: " .. Player.DisplayName)
-
-    -- Update FPS
-    local success, fpsInfo = pcall(function()
-        return game:GetService("Stats"):GetFPS()
-    end)
-
-    if success and fpsInfo ~= nil then
-        local fps = math.floor(fpsInfo)
-        local targetFps = math.floor(fpsInfo * 100 + 0.5) / 100
-        fpsLabel:UpdateText("FPS: " .. fps .. " (Target: " .. targetFps .. ")")
-    else
-        fpsLabel:UpdateText("FPS: Error")
-    end
-
-    -- Update player count
-    local playerCountLabel = HomeSection:FindLabel("Player Count:")
-    if playerCountLabel then
-        local success, playerCount = pcall(function()
-            return #game.Players:GetPlayers()
-        end)
-
-        if success and playerCount ~= nil then
-            playerCountLabel:UpdateText("Player Count: " .. playerCount)
-        else
-            playerCountLabel:UpdateText("Player Count: Error")
-        end
-    end
 end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
@@ -70,8 +42,6 @@ HomeSection:NewButton("Clear Labels", "Resets the labels", function()
     playerIdLabel:UpdateText("Player ID: ")
     playerNameLabel:UpdateText("Player Name: ")
     displayNameLabel:UpdateText("Display Name: ")
-    fpsLabel:UpdateText("FPS: ")
-    HomeSection:RemoveLabel("Player Count:")
 end)
 
 print("Code has been executed successfully!")
@@ -184,9 +154,9 @@ function RunMovement()
         local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
         if humanoidRootPart then
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 9)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 9)
         end
         wait()
     end
