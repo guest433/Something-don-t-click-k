@@ -38,12 +38,6 @@ HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     end
 end)
 
-HomeSection:NewButton("Clear Labels", "Resets the labels", function()
-    playerIdLabel:UpdateText("Player ID: ")
-    playerNameLabel:UpdateText("Player Name: ")
-    displayNameLabel:UpdateText("Display Name: ")
-end)
-
 print("Code has been executed successfully!")
 
 local Script= Window:NewTab("Script")
