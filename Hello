@@ -8,13 +8,13 @@ local HomeSection = Home:NewSection("Home")
 local Player = game.Players.LocalPlayer
 
 local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
-local playerNameLabel = HomeSection:NewLabel("Player Name: " .. Player.Name)
+local playerNameLabel = HomeSection:NewLabel("hello: " .. Player.Name)
 local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.DisplayName)
 
 local function updatePlayerInfo()
     -- Update player information
     playerIdLabel:UpdateText("Player ID: " .. Player.UserId)
-    playerNameLabel:UpdateText("Player Name: " .. Player.Name)
+    playerNameLabel:UpdateText("hi: " .. Player.Name)
     displayNameLabel:UpdateText("Display Name: " .. Player.DisplayName)
 end
 
@@ -92,7 +92,7 @@ end)
 local gamesSection = games:NewSection("Q")
 local gamesSection = games:NewSection("R")
 local gamesSection = games:NewSection("S")
-gamesSection:NewButton("slap battles", "", function()
+gamesSection:NewButton("slap battles not verified", "", function()
     --[[
 	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
