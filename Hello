@@ -151,11 +151,28 @@ function RunMovement()
             Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
             Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
-                   local forwardDirection = humanoidRootPart.CFrame.lookVector
+           Character.HumanoidRootPart.Position + forwardDirection * 30)
+        local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
             Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
             Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
-
+           Character.HumanoidRootPart.Position + forwardDirection * 30)
+         local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
+           Character.HumanoidRootPart.Position + forwardDirection * 30)
+        local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
+           Character.HumanoidRootPart.Position + forwardDirection * 30)
           end
         wait()
     end
