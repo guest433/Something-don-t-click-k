@@ -118,12 +118,6 @@ Script2Section:NewButton("version hub", "", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
 end)
 
-local Script3= Window:NewTab("player")
-local Script3Section = Script3:NewSection("player")
-Script3Section:NewButton("gaming hub fly", "this is a copy rigthed", function()
-    loadstring(game:HttpGet('https://pastebin.com/raw/V5xp9qhJ'))()
-end)
-
 Script3Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
 end)
@@ -148,30 +142,29 @@ function RunMovement()
         local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
         if humanoidRootPart then
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
-           Character.HumanoidRootPart.Position + forwardDirection * 30)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
         local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
         if humanoidRootPart then
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
            Character.HumanoidRootPart.Position + forwardDirection * 30)
          local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
         if humanoidRootPart then
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
            Character.HumanoidRootPart.Position + forwardDirection * 30)
         local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
         if humanoidRootPart then
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
            Character.HumanoidRootPart.Position + forwardDirection * 30)
           end
         wait()
