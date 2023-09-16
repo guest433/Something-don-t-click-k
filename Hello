@@ -148,10 +148,15 @@ function RunMovement()
         local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
         if humanoidRootPart then
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 9)
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
             local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 9)
-        end
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
+                   local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 18)
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 30)
+
+          end
         wait()
     end
 end
@@ -205,14 +210,6 @@ end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
-end)
-
-Tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
-end)
-
-Tab3Section:NewButton("dark dex", "", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
