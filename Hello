@@ -7,20 +7,20 @@ local HomeSection = Home:NewSection("Home")
 
 local Player = game.Players.LocalPlayer
 
-local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
 local playerNameLabel = HomeSection:NewLabel("hello: " .. Player.Name)
 local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.DisplayName)
+local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
 
 local function updatePlayerInfo()
     -- Update player information
-    playerIdLabel:UpdateText("Player ID: " .. Player.UserId)
+    playerIdLabel:UpdateText("your ID: " .. Player.UserId)
     playerNameLabel:UpdateText("hi: " .. Player.Name)
-    displayNameLabel:UpdateText("Display Name: " .. Player.DisplayName)
+    displayNameLabel:UpdateText("your Display Name: " .. Player.DisplayName)
 end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
 
-SectionHome:NewLabel("settings")
+local PlayerSettingLabel = HomeSection:NewLabel("setting")
 HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     local function rejoinPlayer(player)
         local success, errorMessage = pcall(function()
@@ -39,13 +39,13 @@ HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     end
 end)
 
-Section:NewButton("serverhop", function()
+HomeSection:NewButton("serverhop", function()
     local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
 
 module:Teleport(game.PlaceId)
 end)
 
-SectionHome:NewButton("less server", function()
+HomeSection:NewButton("less server", function()
     local Http = game:GetService("HttpService")
 local TPS = game:GetService("TeleportService")
 local Api = "https://games.roblox.com/v1/games/"
