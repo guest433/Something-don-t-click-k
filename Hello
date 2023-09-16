@@ -36,12 +36,12 @@ HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     end
 end)
 
-HomeSection:NewButton("Serverhop", function()
+HomeSection:NewButton("Serverhop", "", function()
     local module = loadstring(game:HttpGet("https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua"))()
     module:Teleport(game.PlaceId)
 end)
 
-HomeSection:NewButton("Less Server", function()
+HomeSection:NewButton("Less Server", "", function()
     local Http = game:GetService("HttpService")
     local TPS = game:GetService("TeleportService")
     local Api = "https://games.roblox.com/v1/games/"
@@ -64,20 +64,20 @@ HomeSection:NewButton("Less Server", function()
     TPS:TeleportToPlaceInstance(_place, Server.id, game.Players.LocalPlayer)
 end)
 
+HomeSection:NewToggle("noclip", "", function(state)
+    if state then
+        
+    else
+        print("Toggle Off")
+    end
+end)
+
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
--- Noclip Function
-local noclipEnabled = false
-local function toggleNoclip()
-    noclipEnabled = not noclipEnabled
-    game.Players.LocalPlayer.Character.Humanoid:ChangeState(noclipEnabled and 11 or 16)
-end
-
-ScriptSection:NewButton("Toggle Noclip", "Enable/disable noclip", toggleNoclip)
-
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
+
 
 gamesSection:NewButton("Ability Wars", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
