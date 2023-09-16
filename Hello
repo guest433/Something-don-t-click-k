@@ -1,7 +1,6 @@
 local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
 local Window = Library.CreateLib("itzm hub", "Synapse")
 
--- Tabs
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
 
@@ -12,7 +11,6 @@ local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.Display
 local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
 
 local function updatePlayerInfo()
-    -- Update player information
     playerIdLabel:UpdateText("your ID: " .. Player.UserId)
     playerNameLabel:UpdateText("hi: " .. Player.Name)
     displayNameLabel:UpdateText("your Display Name: " .. Player.DisplayName)
@@ -20,18 +18,17 @@ end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
 
-local PlayerSettingLabel = HomeSection:NewLabel("setting")
-HomeSection:NewButton("Rejoin", "Rejoins the game", function()
-    local function rejoinPlayer(player)
-        local success, errorMessage = pcall(function()
-            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
-        end)
+local function rejoinPlayer(player)
+    local success, errorMessage = pcall(function()
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
+    end)
 
-        if not success then
-            warn("Failed to rejoin player:", errorMessage)
-        end
+    if not success then
+        warn("Failed to rejoin player:", errorMessage)
     end
+end
 
+HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     for _, player in ipairs(game.Players:GetPlayers()) do
         if player.UserId > 0 then
             rejoinPlayer(player)
@@ -39,91 +36,117 @@ HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     end
 end)
 
-HomeSection:NewButton("serverhop", function()
-    local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
-
-module:Teleport(game.PlaceId)
+HomeSection:NewButton("Serverhop", function()
+    local module = loadstring(game:HttpGet("https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua"))()
+    module:Teleport(game.PlaceId)
 end)
 
-HomeSection:NewButton("less server", function()
+HomeSection:NewButton("Less Server", function()
     local Http = game:GetService("HttpService")
-local TPS = game:GetService("TeleportService")
-local Api = "https://games.roblox.com/v1/games/"
+    local TPS = game:GetService("TeleportService")
+    local Api = "https://games.roblox.com/v1/games/"
 
-local _place = game.PlaceId
-local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=100"
-function ListServers(cursor)
-  local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
-  return Http:JSONDecode(Raw)
-end
-
-local Server, Next; repeat
-  local Servers = ListServers(Next)
-  Server = Servers.data[1]
-  Next = Servers.nextPageCursor
-until Server
-
-TPS:TeleportToPlaceInstance(_place,Server.id,game.Players.LocalPlayer)
+    local _place = game.PlaceId
+    local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=100"
+    
+    local function ListServers(cursor)
+        local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
+        return Http:JSONDecode(Raw)
+    end
+    
+    local Server, Next
+    repeat
+        local Servers = ListServers(Next)
+        Server = Servers.data[1]
+        Next = Servers.nextPageCursor
+    until Server
+    
+    TPS:TeleportToPlaceInstance(_place, Server.id, game.Players.LocalPlayer)
 end)
-
-print("Code has been executed successfully!")
 
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
+-- Noclip Function
+local noclipEnabled = false
+local function toggleNoclip()
+    noclipEnabled = not noclipEnabled
+    game.Players.LocalPlayer.Character.Humanoid:ChangeState(noclipEnabled and 11 or 16)
+end
+
+ScriptSection:NewButton("Toggle Noclip", "Enable/disable noclip", toggleNoclip)
+
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
-local gamesSection = games:NewSection("A")
-gamesSection:NewButton("Ability wars", "", function()
+
+gamesSection:NewButton("Ability Wars", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
 end)
-local gamesSection = games:NewSection("B")
-gamesSection:NewButton("Blox fruit hoho hub have to get key", "", function()
+
+local gamesSectionB = games:NewSection("B")
+gamesSectionB:NewButton("Blox Fruit HOHO Hub", "", function()
     _G.HohoVersion = "v3"
-loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
 end)
-gamesSection:NewButton("uranium hub", "", function()
+gamesSectionB:NewButton("Uranium Hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
 end)
-gamesSection:NewButton("pado hub", "", function()
+gamesSectionB:NewButton("Pado Hub", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/REWzaKunGz1/premium/main/PadoHub'))()
 end)
-gamesSection:NewButton("idk", "", function()
+gamesSectionB:NewButton("IDK", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/AXCScript/KayMobile/main/Script-Loader'))()
 end)
-local gamesSection = games:NewSection("C")
-local gamesSection = games:NewSection("D")
-gamesSection:NewButton("Da hood", "ButtonInfo", function()
+
+local gamesSectionC = games:NewSection("C")
+
+local gamesSectionD = games:NewSection("D")
+gamesSectionD:NewButton("Da Hood", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SwagModeV002'))()
 end)
-local gamesSection = games:NewSection("E")
-local gamesSection = games:NewSection("F")
-local gamesSection = games:NewSection("G")
-local gamesSection = games:NewSection("H")
-local gamesSection = games:NewSection("I")
-local gamesSection = games:NewSection("J")
-local gamesSection = games:NewSection("K")
-local gamesSection = games:NewSection("L")
-local gamesSection = games:NewSection("M")
-local gamesSection = games:NewSection("N")
-local gamesSection = games:NewSection("O")
-local gamesSection = games:NewSection("P")
-gamesSection:NewButton("prison  Life", "", function()
+
+local gamesSectionE = games:NewSection("E")
+
+local gamesSectionF = games:NewSection("F")
+
+local gamesSectionG = games:NewSection("G")
+
+local gamesSectionH = games:NewSection("H")
+
+local gamesSectionI = games:NewSection("I")
+
+local gamesSectionJ = games:NewSection("J")
+
+local gamesSectionK = games:NewSection("K")
+
+local gamesSectionL = games:NewSection("L")
+
+local gamesSectionM = games:NewSection("M")
+
+local gamesSectionN = games:NewSection("N")
+
+local gamesSectionO = games:NewSection("O")
+
+local gamesSectionP = games:NewSection("P")
+gamesSectionP:NewButton("Prison Life", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/H17S32/Tiger_Admin/main/Script'))() 
 end)
-local gamesSection = games:NewSection("Q")
-local gamesSection = games:NewSection("R")
-local gamesSection = games:NewSection("S")
-gamesSection:NewButton("slap battles not verified", "", function()
-    --[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-loadstring(game:HttpGet("https://raw.githubusercontent.com/dizyhvh/slap_battles_gui/main/0.lua"))()
+
+local gamesSectionQ = games:NewSection("Q")
+
+local gamesSectionR = games:NewSection("R")
+
+local gamesSectionS = games:NewSection("S")
+gamesSectionS:NewButton("Slap Battles Not Verified", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dizyhvh/slap_battles_gui/main/0.lua"))()
 end)
-gamesSection:NewButton("slap battles second script", "", function()
-    loadstring(game:HttpGet(("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Slap%20Battles")))()
+
+gamesSectionS:NewButton("Slap Battles Second Script", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Slap%20Battles"))()
 end)
-local gamesSection = games:NewSection("T")
+
+print("Code has been executed successfully!")
+
 local gamesSection = games:NewSection("U")
 local gamesSection = games:NewSection("V")
 local gamesSection = games:NewSection("W") 
