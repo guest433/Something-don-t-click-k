@@ -106,10 +106,6 @@ local gamesSection = games:NewSection("Z")
 local Script2= Window:NewTab("hubs")
 local Script2Section = Script2:NewSection("hubs")
 
-Script2Section:NewButton("arch hub", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/shehajeez/arch/main/arch.lua"))()
-end)
-
 Script2Section:NewButton("gigachad hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
 end)
@@ -125,41 +121,7 @@ Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
 
-Script3Section:NewToggle("advance speedwalking", "", function(state)
-    if state then
-        _G.Running = true
-        RunMovement()
-    else
-        _G.Running = false
-        StopMovement()
-    end
-end)
-
-local Player = game:GetService("Players").LocalPlayer
-
-function RunMovement()
-    while _G.Running do
-        local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
-        if humanoidRootPart then
-            local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
-            local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
-        local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
-        if humanoidRootPart then
-            local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
-            local forwardDirection = humanoidRootPart.CFrame.lookVector
-            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1)
-          end
-        wait()
-    end
-end
-
-function StopMovement()
-    Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position)
-end
-
+-- tab
 local Tab3= Window:NewTab("make your own hub")
 local Tab3Section = Tab3:NewSection("smth")
 
