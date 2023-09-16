@@ -20,6 +20,7 @@ end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
 
+SectionHome:NewLabel("settings")
 HomeSection:NewButton("Rejoin", "Rejoins the game", function()
     local function rejoinPlayer(player)
         local success, errorMessage = pcall(function()
@@ -36,6 +37,33 @@ HomeSection:NewButton("Rejoin", "Rejoins the game", function()
             rejoinPlayer(player)
         end
     end
+end)
+
+Section:NewButton("serverhop", function()
+    local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
+
+module:Teleport(game.PlaceId)
+end)
+
+SectionHome:NewButton("less server", function()
+    local Http = game:GetService("HttpService")
+local TPS = game:GetService("TeleportService")
+local Api = "https://games.roblox.com/v1/games/"
+
+local _place = game.PlaceId
+local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=100"
+function ListServers(cursor)
+  local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
+  return Http:JSONDecode(Raw)
+end
+
+local Server, Next; repeat
+  local Servers = ListServers(Next)
+  Server = Servers.data[1]
+  Next = Servers.nextPageCursor
+until Server
+
+TPS:TeleportToPlaceInstance(_place,Server.id,game.Players.LocalPlayer)
 end)
 
 print("Code has been executed successfully!")
@@ -114,6 +142,9 @@ Script2Section:NewButton("version hub", "", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
 end)
 
+local Script3= Window:NewTab("player")
+local Script3Section = Script3:NewSection("player")
+
 Script3Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
 end)
@@ -123,7 +154,7 @@ end)
 
 -- tab
 local Tab3= Window:NewTab("make your own hub")
-local Tab3Section = Tab3:NewSection("smth")
+local Tab3Section = Tab3:NewSection("Ismth")
 
 Tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
