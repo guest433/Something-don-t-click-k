@@ -1,4 +1,5 @@
-gui()
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("itzm hub", "Synapse")
 
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
@@ -111,10 +112,6 @@ Script2Section:NewButton("version hub", "", function()
 end)
 local Script3= Window:NewTab("player")
 local Script3Section = Script3:NewSection("player")
-
-function gui()
-local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
-local Window = Library.CreateLib("itzm hub", "Synapse")
 
 Script3Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
