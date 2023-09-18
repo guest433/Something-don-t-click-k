@@ -18,6 +18,8 @@ end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
 
+local settingLabel = HomeSection:NewLabel("player settings")
+
 local function rejoinPlayer(player)
     local success, errorMessage = pcall(function()
         game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
