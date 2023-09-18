@@ -1,5 +1,3 @@
-local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
-local Window = Library.CreateLib("itzm hub", "Synapse")
 
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
@@ -18,7 +16,110 @@ end
 
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
 
-local settingLabel = HomeSection:NewLabel("player settings")
+local Script= Window:NewTab("Script")
+local ScriptSection = Script:NewSection("Script")
+
+local games = Window:NewTab("games")
+local gamesSection = games:NewSection("games")
+
+
+gamesSection:NewButton("Ability Wars", "", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
+end)
+
+local gamesSectionB = games:NewSection("B")
+gamesSectionB:NewButton("Blox Fruit HOHO Hub", "", function()
+    _G.HohoVersion = "v3"
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
+end)
+gamesSectionB:NewButton("Uranium Hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
+end)
+gamesSectionB:NewButton("Pado Hub", "", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/REWzaKunGz1/premium/main/PadoHub'))()
+end)
+gamesSectionB:NewButton("IDK", "", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/AXCScript/KayMobile/main/Script-Loader'))()
+end)
+
+local gamesSectionC = games:NewSection("C")
+
+local gamesSectionD = games:NewSection("D")
+gamesSectionD:NewButton("Da Hood", "", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SwagModeV002'))()
+end)
+
+local gamesSectionE = games:NewSection("E")
+
+local gamesSectionF = games:NewSection("F")
+
+local gamesSectionG = games:NewSection("G")
+
+local gamesSectionH = games:NewSection("H")
+
+local gamesSectionI = games:NewSection("I")
+
+local gamesSectionJ = games:NewSection("J")
+
+local gamesSectionK = games:NewSection("K")
+
+local gamesSectionL = games:NewSection("L")
+
+local gamesSectionM = games:NewSection("M")
+
+local gamesSectionN = games:NewSection("N")
+
+local gamesSectionO = games:NewSection("O")
+
+local gamesSectionP = games:NewSection("P")
+gamesSectionP:NewButton("Prison Life", "", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/H17S32/Tiger_Admin/main/Script'))() 
+end)
+
+local gamesSectionQ = games:NewSection("Q")
+
+local gamesSectionR = games:NewSection("R")
+
+local gamesSectionS = games:NewSection("S")
+gamesSectionS:NewButton("Slap Battles Not Verified", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dizyhvh/slap_battles_gui/main/0.lua"))()
+end)
+
+gamesSectionS:NewButton("Slap Battles Second Script", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Slap%20Battles"))()
+end)
+
+print("Code has been executed successfully!")
+
+local gamesSection = games:NewSection("U")
+local gamesSection = games:NewSection("V")
+local gamesSection = games:NewSection("W") 
+local gamesSection = games:NewSection("X")
+local gamesSection = games:NewSection("Y")
+local gamesSection = games:NewSection("Z")
+
+local Script2= Window:NewTab("hubs")
+local Script2Section = Script2:NewSection("hubs")
+
+Script2Section:NewButton("gigachad hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
+end)
+
+Script2Section:NewButton("version hub", "", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
+end)
+local Script3= Window:NewTab("player")
+local Script3Section = Script3:NewSection("player")
+
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("itzm hub", "Synapse")
+
+Script3Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
 
 local function rejoinPlayer(player)
     local success, errorMessage = pcall(function()
@@ -29,21 +130,17 @@ local function rejoinPlayer(player)
         warn("Failed to rejoin player:", errorMessage)
     end
 end
-
-HomeSection:NewButton("Rejoin", "Rejoins the game", function()
+Script3Section:NewButton("Rejoin", "Rejoins the game", function()
     for _, player in ipairs(game.Players:GetPlayers()) do
         if player.UserId > 0 then
             rejoinPlayer(player)
         end
-    end
-end)
-
-HomeSection:NewButton("Serverhop", "", function()
+    end)
+Script3Section:NewButton("Serverhop", "", function()
     local module = loadstring(game:HttpGet("https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua"))()
     module:Teleport(game.PlaceId)
 end)
-
-HomeSection:NewButton("Less Server", "", function()
+Script3Section:NewButton("Less Server", "", function()
     local Http = game:GetService("HttpService")
     local TPS = game:GetService("TeleportService")
     local Api = "https://games.roblox.com/v1/games/"
@@ -65,8 +162,7 @@ HomeSection:NewButton("Less Server", "", function()
     
     TPS:TeleportToPlaceInstance(_place, Server.id, game.Players.LocalPlayer)
 end)
-
-HomeSection:NewButton("noclip made by itzm", "", function()
+Script3Section:NewButton("noclip made by itzm", "", function()
     
 local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
@@ -90,7 +186,7 @@ BG.BackgroundColor3 = Color3.new(1, 0, 0) -- red color
 BG.BackgroundTransparency = 0.3 -- changed transparency to 0.3
 BG.BorderColor3 = Color3.new(1, 0, 0) -- red color
 BG.BorderSizePixel = 2
-BG.Position = UDim2.new(0.149479166, 0, 0.82087779, 0)
+BG.Position = UDim2.new(0166, 0, 0.82087779, 0)
 BG.Size = UDim2.new(0, 210, 0, 127)
 BG.Active = true
 BG.Draggable = true
@@ -197,109 +293,6 @@ Toggle.MouseButton1Click:Connect(function()
        end)
 end)
 
-local Script= Window:NewTab("Script")
-local ScriptSection = Script:NewSection("Script")
-
-local games = Window:NewTab("games")
-local gamesSection = games:NewSection("games")
-
-
-gamesSection:NewButton("Ability Wars", "", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
-end)
-
-local gamesSectionB = games:NewSection("B")
-gamesSectionB:NewButton("Blox Fruit HOHO Hub", "", function()
-    _G.HohoVersion = "v3"
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
-end)
-gamesSectionB:NewButton("Uranium Hub", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
-end)
-gamesSectionB:NewButton("Pado Hub", "", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/REWzaKunGz1/premium/main/PadoHub'))()
-end)
-gamesSectionB:NewButton("IDK", "", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/AXCScript/KayMobile/main/Script-Loader'))()
-end)
-
-local gamesSectionC = games:NewSection("C")
-
-local gamesSectionD = games:NewSection("D")
-gamesSectionD:NewButton("Da Hood", "", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SwagModeV002'))()
-end)
-
-local gamesSectionE = games:NewSection("E")
-
-local gamesSectionF = games:NewSection("F")
-
-local gamesSectionG = games:NewSection("G")
-
-local gamesSectionH = games:NewSection("H")
-
-local gamesSectionI = games:NewSection("I")
-
-local gamesSectionJ = games:NewSection("J")
-
-local gamesSectionK = games:NewSection("K")
-
-local gamesSectionL = games:NewSection("L")
-
-local gamesSectionM = games:NewSection("M")
-
-local gamesSectionN = games:NewSection("N")
-
-local gamesSectionO = games:NewSection("O")
-
-local gamesSectionP = games:NewSection("P")
-gamesSectionP:NewButton("Prison Life", "", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/H17S32/Tiger_Admin/main/Script'))() 
-end)
-
-local gamesSectionQ = games:NewSection("Q")
-
-local gamesSectionR = games:NewSection("R")
-
-local gamesSectionS = games:NewSection("S")
-gamesSectionS:NewButton("Slap Battles Not Verified", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dizyhvh/slap_battles_gui/main/0.lua"))()
-end)
-
-gamesSectionS:NewButton("Slap Battles Second Script", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Slap%20Battles"))()
-end)
-
-print("Code has been executed successfully!")
-
-local gamesSection = games:NewSection("U")
-local gamesSection = games:NewSection("V")
-local gamesSection = games:NewSection("W") 
-local gamesSection = games:NewSection("X")
-local gamesSection = games:NewSection("Y")
-local gamesSection = games:NewSection("Z")
-
-local Script2= Window:NewTab("hubs")
-local Script2Section = Script2:NewSection("hubs")
-
-Script2Section:NewButton("gigachad hub", "", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
-end)
-
-Script2Section:NewButton("version hub", "", function()
-    loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
-end)
-
-local Script3= Window:NewTab("player")
-local Script3Section = Script3:NewSection("player")
-
-Script3Section:NewSlider("walkspeed", "", 500, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
-end)
-Script3Section:NewSlider("JumpPower", "", 500, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
-    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
-end)
-
 -- tab
 local Tab3= Window:NewTab("make your own hub")
 local Tab3Section = Tab3:NewSection("Ismth")
@@ -355,3 +348,4 @@ end)
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
+
