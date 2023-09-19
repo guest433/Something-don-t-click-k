@@ -494,33 +494,20 @@ end)
 wait(3.4)
 local Tab3= Window:NewTab("make your own hub")
 local Tab3Section = Tab3:NewSection("Ismth")
-
+wait(1.3)
 Tab3Section:NewButton("simple spy aka remote spy", "you can get remote event sorry if my English is bad", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 end)
-
+wait(1.6)
 Tab3Section:NewButton("dark dex", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
-
 wait(3.4)
 local Script3= Window:NewTab("others")
 local Script3Section = Script3:NewSection("others")
 
 Script3Section:NewButton("keyboard", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
-end)
-
-ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
-end)
-
-ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
-end)
-
-ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
 end)
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
