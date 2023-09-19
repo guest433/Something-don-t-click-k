@@ -1,6 +1,200 @@
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")print ("error")
+print ("error")
+print ("error")
+
+Wait(1)
+game.StarterGui:SetCore("SendNotification", {
+    
+    Title = "preparing script";
+
+    Text = "";
+
+})
+
+Wait (1)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "script loding";
+
+    Text = "";
+
+})
+
+Wait (1.4)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "pls wait 1.5 sec";
+
+    Text = "";
+
+})
+
+Wait (1.5)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "hi";
+
+    Text = "script loaded";
+
+  })
+    
+wait (1.5)
 local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
 local Window = Library.CreateLib("itzm hub", "Synapse")
 
+wait (1.6)
+
+local localScript = Instance.new("LocalScript")
+localScript.Parent = script.Parent
+
+-- Set up the GUI
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Determine the screen size and calculate the desired GUI size
+local screenSize = gui.AbsoluteSize
+local guiSize = UDim2.new(0, screenSize.x * 0.2, 0, screenSize.y * 0.20) -- Adjust the multipliers (0.2 and 0.2) to your desired size
+
+-- Create a Frame to hold the avatar information
+local frame = Instance.new("Frame")
+frame.Size = guiSize
+frame.Position = UDim2.new(1, -guiSize.X.Offset, 0, 0) -- Position the frame at the top right corner of the screen
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BackgroundTransparency = 0.5
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+-- Create an ImageLabel to display the player's avatar
+local avatarLabel = Instance.new("ImageLabel")
+avatarLabel.Size = UDim2.new(0.9, 0, 1, 0) -- Adjust the multipliers (0.9 and 1) to your desired size
+avatarLabel.Position = UDim2.new(0.05, 0, 0, 0) -- Adjust the multipliers (0.05 and 0) to your desired position
+avatarLabel.BackgroundTransparency = 0.5
+avatarLabel.BorderSizePixel = 0
+avatarLabel.Image = "http://www.roblox.com/Thumbs/Avatar.ashx?userId=" .. tostring(game.Players.LocalPlayer.UserId) .. "&x=150&y=150" -- Load the player's avatar image
+avatarLabel.Parent = frame
+
+-- Create a TextLabel to display the avatar name
+local nameLabel = Instance.new("TextLabel")
+nameLabel.Size = UDim2.new(0.9, 0, 0.2, 0) -- Adjust the multipliers (0.9 and 0.1) to your desired size
+nameLabel.Position = UDim2.new(0.05, 0, 0.9, 0) -- Adjust the multipliers (0.05 and 0.9) to your desired position
+nameLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+nameLabel.BackgroundTransparency = 0.5
+nameLabel.BorderSizePixel = 0
+nameLabel.Font = Enum.Font.SourceSansBold
+nameLabel.Text = "hello: " .. game.Players.LocalPlayer.Name -- Display the player's name
+nameLabel.TextColor3 = Color3.new(1, 1, 1)
+nameLabel.TextScaled = true
+nameLabel.Parent = frame
+
+-- Function to handle when the user starts dragging the GUI
+local function dragBegin(input)
+    dragStart = input.Position
+    startPos = frame.Position
+    dragging = true
+    input.Changed:Connect(function()
+        if input.UserInputState == Enum.UserInputState.End then
+            dragging = false
+        end
+    end)
+end
+
+-- Function to handle dragging the GUI
+local function dragMove(input)
+    if dragging then
+        dragInput = input.Position - dragStart
+        frame.Position = UDim2.new(
+            startPos.X.Scale, startPos.X.Offset + dragInput.X,
+            startPos.Y.Scale, startPos.Y.Offset + dragInput.Y
+        )
+    end
+end
+
+-- Connect the drag functions to the input events
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragBegin(input)
+    end
+end)
+
+frame.InputChanged:Connect(dragMove)
+frame.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragEnd()
+    end
+end)
+
+wait(1.9)
 local Home = Window:NewTab("Home")
 local HomeSection = Home:NewSection("Home")
 
@@ -10,40 +204,41 @@ local playerNameLabel = HomeSection:NewLabel("hello: " .. Player.Name)
 local displayNameLabel = HomeSection:NewLabel("Display Name: " .. Player.DisplayName)
 local playerIdLabel = HomeSection:NewLabel("Player ID: " .. Player.UserId)
 
-local function updatePlayerInfo()
-    playerIdLabel:UpdateText("your ID: " .. Player.UserId)
-    playerNameLabel:UpdateText("hi: " .. Player.Name)
-    displayNameLabel:UpdateText("your Display Name: " .. Player.DisplayName)
-end
-
 game:GetService("RunService").Heartbeat:Connect(updatePlayerInfo)
 
+wait(2.4)
 local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("games")
 
-
+wait(1.9)
 gamesSection:NewButton("Ability Wars", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/guest433/Smth/main/Yes'))()
 end)
+
+print(successfullylodedthescript)
 
 local gamesSectionB = games:NewSection("B")
 gamesSectionB:NewButton("Blox Fruit HOHO Hub", "", function()
     _G.HohoVersion = "v3"
     loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
 end)
+wait(3.8)
 gamesSectionB:NewButton("Uranium Hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
 end)
+wait(3.8)
 gamesSectionB:NewButton("Pado Hub", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/REWzaKunGz1/premium/main/PadoHub'))()
 end)
+wait(1.8)
 gamesSectionB:NewButton("IDK", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/AXCScript/KayMobile/main/Script-Loader'))()
 end)
 
+wait(1.6)
 local gamesSectionC = games:NewSection("C")
 
 local gamesSectionD = games:NewSection("D")
@@ -106,10 +301,11 @@ local Script2Section = Script2:NewSection("hubs")
 Script2Section:NewButton("gigachad hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LolPrivate/Side/main/Moonsec%20V3"))()
 end)
-
+wait(2.4)
 Script2Section:NewButton("version hub", "", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/wKc5r6CM"))()
 end)
+wait(2.3)
 local Script3= Window:NewTab("player")
 local Script3Section = Script3:NewSection("player")
 
@@ -134,7 +330,8 @@ Script3Section:NewButton("Rejoin", "Rejoins the game", function()
         if player.UserId > 0 then
             rejoinPlayer(player)
         end
-    end)
+    end
+end)
 Script3Section:NewButton("Serverhop", "", function()
     local module = loadstring(game:HttpGet("https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua"))()
     module:Teleport(game.PlaceId)
@@ -161,8 +358,10 @@ Script3Section:NewButton("Less Server", "", function()
     
     TPS:TeleportToPlaceInstance(_place, Server.id, game.Players.LocalPlayer)
 end)
+
+wait(3.5)
 Script3Section:NewButton("noclip made by itzm", "", function()
-    
+
 local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -185,7 +384,7 @@ BG.BackgroundColor3 = Color3.new(1, 0, 0) -- red color
 BG.BackgroundTransparency = 0.3 -- changed transparency to 0.3
 BG.BorderColor3 = Color3.new(1, 0, 0) -- red color
 BG.BorderSizePixel = 2
-BG.Position = UDim2.new(0166, 0, 0.82087779, 0)
+BG.Position = UDim2.new(0.166, 0, 0.821, 0)
 BG.Size = UDim2.new(0, 210, 0, 127)
 BG.Active = true
 BG.Draggable = true
@@ -270,7 +469,7 @@ Toggle.MouseButton1Click:Connect(function()
 		Status.Text = "on"
 		Status.TextColor3 = Color3.new(0, 185, 0)
 		Stepped = game:GetService("RunService").Stepped:Connect(function()
-			if not Clipon == false then
+			if Clipon then
 				for a, b in pairs(Workspace:GetChildren()) do
 					if b.Name == Plr.Name then
 						for i, v in pairs(Workspace[Plr.Name]:GetChildren()) do
@@ -287,12 +486,12 @@ Toggle.MouseButton1Click:Connect(function()
 	elseif Status.Text == "on" then
 		Clipon = false
 		Status.Text = "off"
-		Status.TextColor3 = Color3.new(170, 0, 0) 
-            end
-       end)
+		Status.TextColor3 = Color3.new(170, 0, 0)
+	end
 end)
-
+end)
 -- tab
+wait(3.4)
 local Tab3= Window:NewTab("make your own hub")
 local Tab3Section = Tab3:NewSection("Ismth")
 
@@ -304,7 +503,7 @@ Tab3Section:NewButton("dark dex", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
-
+wait(3.4)
 local Script3= Window:NewTab("others")
 local Script3Section = Script3:NewSection("others")
 
@@ -332,10 +531,6 @@ ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
-ScritSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
-end)
-
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
@@ -347,4 +542,3 @@ end)
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
-
