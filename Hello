@@ -91,27 +91,15 @@ game.StarterGui:SetCore("SendNotification", {
 
 })
 
-Wait (1.4)
+Wait (1)
 game.StarterGui:SetCore("SendNotification", {
 
-    Title = "pls wait 1.5 sec";
+    Title = "script loaded can be movable";
 
     Text = "";
 
+
 })
-
-Wait (1.5)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "hi";
-
-    Text = "script loaded";
-
-  })
-    
-wait (1.5)
-local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
-local Window = Library.CreateLib("itzm hub", "Synapse")
 
 wait (1.6)
 
@@ -193,6 +181,78 @@ frame.InputEnded:Connect(function(input)
         dragEnd()
     end
 end)
+
+Wait (1)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "preparing gui";
+
+    Text = "";
+
+
+})
+
+Wait (1)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "gui loading";
+
+    Text = "";
+
+
+})
+Wait (1)
+
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "gui has an error pls wait";
+
+    Text = "";
+
+
+})
+
+Wait (5)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "2nd error pls wait";
+
+    Text = "";
+
+
+})
+
+Wait (5)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "........ your still here";
+
+    Text = "";
+
+
+})
+
+Wait (1.4)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "pls wait 1.5 sec";
+
+    Text = "";
+
+})
+
+Wait (1.5)
+game.StarterGui:SetCore("SendNotification", {
+
+    Title = "hi";
+
+    Text = "script loaded";
+
+  })
+    
+wait (1.5)
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("itzm hub", "Synapse")
 
 wait(1.9)
 local Home = Window:NewTab("Home")
@@ -529,3 +589,4 @@ end)
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
+
