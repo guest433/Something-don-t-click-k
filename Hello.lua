@@ -492,7 +492,12 @@ local Script= Window:NewTab("Script")
 local ScriptSection = Script:NewSection("Script")
 
 local games = Window:NewTab("games")
-local gamesSection = games:NewSection("games")
+local gamesSection = games:NewSection("A")
+
+gamesSection:NewButton("altitorture by f hub", "ButtonInfo", function()
+-- Altitorture Script 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/Hide/main/Test"))()
+end)
 
 wait(1.9)
 gamesSection:NewButton("Ability Wars", "", function()
@@ -502,6 +507,11 @@ end)
 print(successfullylodedthescript)
 
 local gamesSectionB = games:NewSection("B")
+
+gamesSection:NewButton("f hub break in 2", "", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/Hide/main/Brea%20in%202"))()
+end)
+
 gamesSectionB:NewButton("Blox Fruit HOHO Hub", "", function()
     _G.HohoVersion = "v3"
     loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
@@ -647,7 +657,7 @@ Script3Section:NewButton("noclip made by itzm", "", function()
 
 -- tab
 
-local Script7= Window:NewTab("make your own hub")
+local Script7= Window:NewTab("make your own script")
 local Script7Section= Script7:NewSection("")
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
@@ -665,3 +675,4 @@ end)
 wait(10.9)
 local Script9= Window:NewTab("credit")
 local Script9Section= Script9:NewSection("credit by itzm")
+local Script9Section= Script9:NewSection("f hub credit for giving some script")
