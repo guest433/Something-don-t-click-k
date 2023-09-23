@@ -108,7 +108,7 @@ guiFrame.BackgroundColor3 = Color3.new(1, 0, 0)-- color
 guiFrame.BorderSizePixel = 0
 guiFrame.Parent = screenGui
 
--- add a close button
+-- i add a close button
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
 closeButton.Size = UDim2.new(0, 20, 0, 20)
@@ -123,7 +123,7 @@ closeButton.MouseButton1Click:Connect(function()
     screenGui.Enabled = false
 end)
 
--- add a minimize button
+-- and add a minimize button
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "MinimizeButton"
 minimizeButton.Size = UDim2.new(0, 20, 0, 20)
@@ -461,9 +461,9 @@ end
 local NotificationBindable = Instance.new("BindableFunction")
 NotificationBindable.OnInvoke = callback
 --
-game.StarterGui:SetCore("SendNotification",  {
- Title = "Title";
- Text = "Description";
+game.StarterGui:SetCore("SendNotification", {
+ Title = "hi";
+ Text = "do you want to delete the display gui";
  Icon = "";
  Duration = 5;
  Button1 = "yes";
@@ -642,30 +642,26 @@ end)
 
 wait(3.5)
 Script3Section:NewButton("noclip made by itzm", "", function()
-loadstring(game:HttpGet("https://github.com/guest433/Idkhello/blob/main/noclip.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Idkhello/main/noclip.lua"))()
   end)
+
 -- tab
-wait(3.4)
-local Tab3= Window:NewTab("make your own hub")
-local Tab3Section = Tab3:NewSection("Ismt")
 
-Tab3Section:NewButton("noclip made by itzm", "", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
-  end)
+local Script7= Window:NewTab("make your own hub")
+local Script7Section= Script7:NewSection("")
 
-Tab3Section:NewButton("noclip made by itzm", "", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
-  end)
-    
-wait(3.4)
-local Script3= Window:NewTab("others")
-local Script3Section = Script3:NewSection("others")
+ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
 
-Script3Section:NewButton("noclip made by itzm", "", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
-  end)
+Script7Section:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
 
-ScriptSection:NewButton("noclip made by itzm", "", function()
-    print ("ok")
-  end)
-    
+Script7Section:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+wait(10.9)
+local Script9= Window:NewTab("credit")
+local Script9Section= Script9:NewSection("credit by itzm")
