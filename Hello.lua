@@ -162,7 +162,7 @@ game.StarterGui:SetCore("SendNotification", {
 
 
   })
-  -- ok heres the gui you ask for by itzm
+wait(1)
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ItzmHub"
@@ -190,7 +190,7 @@ closeButton.TextScaled = true
 closeButton.Parent = guiFrame
 
 closeButton.MouseButton1Click:Connect(function()
-    screenGui.Enabled = false
+    screenGui:Destroy()
 end)
 
 -- and add a minimize button
@@ -221,11 +221,14 @@ plusButton.Text = "+"
 plusButton.Font = Enum.Font.SourceSansBold
 plusButton.TextColor3 = Color3.new(1, 1, 1)
 plusButton.TextScaled = true
+miniGuiFrame.Visible = false
 plusButton.Parent = miniGuiFrame
 
 plusButton.MouseButton1Click:Connect(function()
-    miniGuiFrame.Visible = false
-    guiFrame.Visible = true
+    if not guiFrame.Visible then
+        miniGuiFrame.Visible = false
+        guiFrame.Visible = true
+    end
 end)
 
 minimizeButton.MouseButton1Click:Connect(function()
@@ -287,10 +290,16 @@ fpsLabel.Size = UDim2.new(1, 0, 0.1, 0)
 fpsLabel.Position = UDim2.new(0, 0, 0.8, 0)
 fpsLabel.BackgroundTransparency = 1
 fpsLabel.Font = Enum.Font.SourceSansBold
-fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
+fpsLabel.Text = "FPS: "
 fpsLabel.TextColor3 = Color3.new(1, 1, 1)
 fpsLabel.TextScaled = true
 fpsLabel.Parent = mainSection
+
+local function updateFPS()
+    fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
+end
+
+game:GetService("RunService").RenderStepped:Connect(updateFPS)
 
 local playerCountLabel = Instance.new("TextLabel")
 playerCountLabel.Name = "PlayerCount"
@@ -302,6 +311,13 @@ playerCountLabel.Text = "Players: " .. #game.Players:GetPlayers()
 playerCountLabel.TextColor3 = Color3.new(1, 1, 1)
 playerCountLabel.TextScaled = true
 playerCountLabel.Parent = mainSection
+
+local function updatePlayerCount()
+    playerCountLabel.Text = "Players: " .. #game.Players:GetPlayers()
+end
+
+game.Players.PlayerAdded:Connect(updatePlayerCount)
+game.Players.PlayerRemoving:Connect(updatePlayerCount)
 
 local mainButton = Instance.new("TextButton")
 mainButton.Name = "MainButton"
@@ -731,7 +747,7 @@ local Script7= Window:NewTab("make your own script")
 local Script7Section= Script7:NewSection("")
 
 ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
 Script7Section:NewButton("ButtonText", "ButtonInfo", function()
@@ -745,4 +761,4 @@ end)
 wait(10.9)
 local Script9= Window:NewTab("credit")
 local Script9Section= Script9:NewSection("credit by itzm")
-local Script9Section= Script9:NewSection("f hub credit for giving some script")
+local Script9Section= Script9:NewSection("f hub credit for giving some script and Ideas")
