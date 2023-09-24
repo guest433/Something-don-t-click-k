@@ -65,6 +65,76 @@ print ("error")
 print ("error")
 print ("error")
 
+local gui = Instance.new("ScreenGui")
+gui.Name = "RoundedGUI"
+gui.Parent = game.CoreGui
+
+local changeframename = Instance.new("Frame")
+changeframename.Size = UDim2.new(0, 500, 0, 200)
+changeframename.Position = UDim2.new(0.5, -250, 0.8, -100) 
+changeframename.BackgroundColor3 = Color3.new(0, 0, 0)
+changeframename.BorderColor3 = Color3.fromRGB(0, 0, 0) 
+changeframename.BorderSizePixel = 3
+changeframename.Active = true
+changeframename.Draggable = true
+changeframename.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 10)
+corner.Parent = changeframename
+
+local corner2 = Instance.new("UICorner")
+corner2.CornerRadius = UDim.new(0, 10)
+corner2.Parent = changeframename
+
+local changeframename1 = Instance.new("ImageButton")
+changeframename1.Size = UDim2.new(0, 80, 0, 80)
+changeframename1.Position = UDim2.new(0, 0, 0, 0) 
+changeframename1.BorderSizePixel = 0
+changeframename1.Image = "rbxassetid://14859144281"
+changeframename1.ScaleType = Enum.ScaleType.Stretch
+changeframename1.Parent = changeframename
+changeframename1.MouseButton1Click:Connect(function()
+    print("Button clicked!")
+end)
+
+local corner3 = Instance.new("UICorner") 
+corner3.CornerRadius = UDim.new(0, 10) 
+corner3.Parent = changeframename1
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Parent = changeframename
+textLabel.BackgroundTransparency = 1
+textLabel.Position = UDim2.new(0, 8, 0, 10)
+textLabel.Size = UDim2.new(0, 480, 0, 160)
+textLabel.Font = Enum.Font.SourceSans
+textLabel.TextSize = 24
+textLabel.TextColor3 = Color3.new(1, 0, 0)
+textLabel.TextWrapped = true
+
+local text = "some script are made by f hub and some ideas credit for f and made by itzm "
+local speed = 0.07
+local soundId = "rbxassetid://827313405"
+
+local sound = Instance.new("Sound")
+sound.Parent = textLabel
+sound.SoundId = soundId
+sound.Volume = 1
+sound.Name = "keyboard"
+sound.Looped = true
+
+for i = 1, #text, 1 do
+    textLabel.Text = string.sub(text, 1, i)
+    if i == 1 then
+        sound:Play()
+    end
+    wait(speed)
+end
+
+sound:Stop()
+wait(1)
+gui:Destroy()
+
 wait(2)
 game.StarterGui:SetCore("SendNotification", {
     
@@ -104,7 +174,7 @@ guiFrame.Name = "Itzm Hub Frame"
 guiFrame.Size = UDim2.new(0.2, 0, 0.5, 0)
 guiFrame.Position = UDim2.new(0.7, 0, 0.0, -guiFrame.Size.Y.Offset/2)
 guiFrame.BackgroundTransparency = 1
-guiFrame.BackgroundColor3 = Color3.new(1, 0, 0)-- color
+guiFrame.BackgroundColor3 = Color3.new(1, 0, 0)
 guiFrame.BorderSizePixel = 0
 guiFrame.Parent = screenGui
 
