@@ -746,12 +746,12 @@ Script3Section:NewButton("noclip made by itzm", "", function()
 local Script7= Window:NewTab("make your own script")
 local Script7Section= Script7:NewSection("")
 
-ScriptSection:NewButton("ButtonText", "ButtonInfo", function()
+ScriptSection:NewButton("ButtonText", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
-Script7Section:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
+Script7Section:NewButton("simple spy", "", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 end)
 
 Script7Section:NewButton("ButtonText", "ButtonInfo", function()
