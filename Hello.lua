@@ -65,6 +65,9 @@ print ("error")
 print ("error")
 print ("error")
 
+error ("your account is gonna get hack if you don't change your password by itzm pls stay protected")
+warning ("10 sec be fast")
+
 local gui = Instance.new("ScreenGui")
 gui.Name = "RoundedGUI"
 gui.Parent = game.CoreGui
