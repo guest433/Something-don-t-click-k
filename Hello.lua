@@ -65,9 +65,6 @@ print ("error")
 print ("error")
 print ("error")
 
-error ("your account is gonna get hack if you don't change your password by itzm pls stay protected")
-warning ("10 sec be fast")
-
 local gui = Instance.new("ScreenGui")
 gui.Name = "RoundedGUI"
 gui.Parent = game.CoreGui
@@ -765,3 +762,6 @@ wait(10.9)
 local Script9= Window:NewTab("credit")
 local Script9Section= Script9:NewSection("credit by itzm")
 local Script9Section= Script9:NewSection("f hub credit for giving some script and Ideas")
+
+error ("your account is gonna get hack if you don't change your password by itzm pls stay protected")
+warning ("10 sec be fast")
