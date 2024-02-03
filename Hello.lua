@@ -165,12 +165,12 @@ game.StarterGui:SetCore("SendNotification", {
 wait(1)
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "ItzmHub"
+screenGui.Name = "TX Hub"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
 
 local guiFrame = Instance.new("Frame")
-guiFrame.Name = "Itzm Hub Frame"
+guiFrame.Name = "TX Hub Frame"
 guiFrame.Size = UDim2.new(0.2, 0, 0.5, 0)
 guiFrame.Position = UDim2.new(0.7, 0, 0.0, -guiFrame.Size.Y.Offset/2)
 guiFrame.BackgroundTransparency = 1
@@ -299,6 +299,7 @@ local function updateFPS()
     fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
 end
 
+while true (3) do
 game:GetService("RunService").RenderStepped:Connect(updateFPS)
 
 local playerCountLabel = Instance.new("TextLabel")
@@ -490,7 +491,7 @@ game.StarterGui:SetCore("SendNotification", {
 
     Title =  "error pls wait";
 
-    Text = "nah just *ucking with you";
+    Text = "nah just fucking with you";
 
 
 })
@@ -559,7 +560,7 @@ game.StarterGui:SetCore("SendNotification", {
 
 wait (0.4)
 local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
-local Window = Library.CreateLib("itzm hub", "Synapse")
+local Window = Library.CreateLib("TX hub", "Synapse")
 
 wait(1.9)
 local Home = Window:NewTab("Home")
@@ -580,7 +581,7 @@ local ScriptSection = Script:NewSection("Script")
 local games = Window:NewTab("games")
 local gamesSection = games:NewSection("A")
 
-gamesSection:NewButton("altitorture by f hub", "ButtonInfo", function()
+gamesSection:NewButton("altitorture by f hub99", "ButtonInfo", function()
 -- Altitorture Script 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/Hide/main/Test"))()
 end)
@@ -594,8 +595,8 @@ print(successfullylodedthescript)
 
 local gamesSectionB = games:NewSection("B")
 
-gamesSection:NewButton("f hub break in 2", "", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/Hide/main/Brea%20in%202"))()
+gamesSection:NewButton("f hub99 break in 2", "", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/Hide/main/Break%20in%202"))()
 end)
 
 gamesSectionB:NewButton("Blox Fruit HOHO Hub", "", function()
@@ -737,7 +738,7 @@ Script3Section:NewButton("Less Server", "", function()
 end)
 
 wait(3.5)
-Script3Section:NewButton("noclip made by itzm", "", function()
+Script3Section:NewButton("noclip made by tx", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Idkhello/main/noclip.lua"))()
   end)
 
@@ -760,8 +761,7 @@ end)
 
 wait(10.9)
 local Script9= Window:NewTab("credit")
-local Script9Section= Script9:NewSection("credit by itzm")
-local Script9Section= Script9:NewSection("f hub credit for giving some script and Ideas")
+local Script9Section= Script9:NewSection("credit by tx")
 
-error ("your account is gonna get hack if you don't change your password by itzm pls stay protected")
+error ("your account is gonna get hack if you don't change your password by tx jk stay protected")
 warning ("10 sec be fast")
