@@ -299,9 +299,9 @@ fpsLabel.Parent = mainSection
 local function updateFPS()
     fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
 end
-
-while true (3) do
+while true (3) do 
 game:GetService("RunService").RenderStepped:Connect(updateFPS)
+end
 
 local playerCountLabel = Instance.new("TextLabel")
 playerCountLabel.Name = "PlayerCount"
@@ -317,6 +317,7 @@ playerCountLabel.Parent = mainSection
 local function updatePlayerCount()
     playerCountLabel.Text = "Players: " .. #game.Players:GetPlayers()
 end
+
 
 game.Players.PlayerAdded:Connect(updatePlayerCount)
 game.Players.PlayerRemoving:Connect(updatePlayerCount)
