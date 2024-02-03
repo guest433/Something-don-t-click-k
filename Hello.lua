@@ -112,7 +112,8 @@ textLabel.TextSize = 24
 textLabel.TextColor3 = Color3.new(1, 0, 0)
 textLabel.TextWrapped = true
 
-local text = "some script are made by f hub and some ideas credit for f and made by itzm "
+local text = "made by TX hub I've forgot how do I do this. this script is 4 months old when I was younger and I just adjust some and change name but not the logo of something "
+
 local speed = 0.07
 local soundId = "rbxassetid://827313405"
 
@@ -604,6 +605,10 @@ gamesSectionB:NewButton("Blox Fruit HOHO Hub", "", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
 end)
 wait(3.8)
+gamesSectionB:NewButton("redz hub", "", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+end)
+
 gamesSectionB:NewButton("Uranium Hub", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
 end)
@@ -656,6 +661,10 @@ local gamesSectionQ = games:NewSection("Q")
 local gamesSectionR = games:NewSection("R")
 
 local gamesSectionS = games:NewSection("S")
+gamesSection:NewButton("stand awakening", "", function()
+loadstring(Game:HttpGet("https://pastebin.com/raw/p2LPDjzf",true))()
+end)
+
 gamesSectionS:NewButton("Slap Battles Not Verified", "", function()
    loadstring(game:HttpGet("https://raw.githubusercontent.com/dizyhvh/slap_battles_gui/main/0.lua"))()
 end)
@@ -747,16 +756,20 @@ Script3Section:NewButton("noclip made by tx", "", function()
 local Script7= Window:NewTab("make your own script")
 local Script7Section= Script7:NewSection("")
 
-ScriptSection:NewButton("ButtonText", "", function()
+ScriptSection:NewButton("darkdexv3", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
 Script7Section:NewButton("simple spy", "", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 end)
+Script7Section:NewButton("mobile simple spy", "mobile simple spy not working I think ", function()
+    
+end)
 
-Script7Section:NewButton("ButtonText", "ButtonInfo", function()
-    print("Clicked")
+
+Script7Section:NewButton("gui maker", "you can make gui in mobile I'm patrick", function()
+    loadstring(game:HttpGet(('https://pastefy.app/EOgPqinS/raw'),true))() --Requires 30% Experience creating scripts" 
 end)
 
 wait(10.9)
