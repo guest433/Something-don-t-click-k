@@ -296,10 +296,12 @@ fpsLabel.TextColor3 = Color3.new(1, 1, 1)
 fpsLabel.TextScaled = true
 fpsLabel.Parent = mainSection
 
+while true do
+   wait (3)
 local function updateFPS()
     fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
 end
-while true (3) do 
+
 game:GetService("RunService").RenderStepped:Connect(updateFPS)
 end
 
