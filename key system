@@ -23,3 +23,67 @@ TeleportSection:NewButton("Teleport", "Teleports to the entered player", functio
         print("Player not found!")
     end
 end)
+
+-- key system kavo
+
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))() 
+
+local Window = Library.CreateLib("key system", "Synapse") 
+
+local Key = Window:NewTab("key system") 
+
+local KeySection = Key:NewSection("Key") 
+
+local key = "key here"
+
+
+local key2
+KeySection:NewTextBox("key", "enter key", function(enter) 
+
+	key2 = enter
+    -- put whatever you want
+
+end)
+
+KeySection:NewButton("check key", "checks your key", function() 
+-- this button will check key
+
+    if key2 == key then
+      local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("key system", "Synapse")
+
+local Key = Window:NewTab("Key")
+local KeySection = Key:NewSection("Key")
+
+local key = "key"
+local key2
+
+KeySection:NewTextBox("key", "enter key", function(enter)
+    key2 = enter
+end)
+
+KeySection:NewButton("check key", "checks your key", function()
+    if key2 == key then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Something-don-t-click-k/main/Hello"))()
+        for i, v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+        if v:IsA("ScreenGui") and v.Name == "key system" then
+            v:Destroy()
+        end
+    end
+end)
+      print("correctkey")
+    else
+      print("Wrongkey")
+    end
+end)
+
+
+
+
+local thekey= Window:NewTab("the key link")
+local thekeySection = thekey:NewSection("copy key here")
+
+
+thekeySection:NewButton("Key", "", function()
+    setclipboard("key here")
+end)
