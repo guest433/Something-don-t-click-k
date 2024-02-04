@@ -523,6 +523,27 @@ Script3Section:NewButton("Less Server", "", function()
     TPS:TeleportToPlaceInstance(_place, Server.id, game.Players.LocalPlayer)
 end)
 
+
+local playerToTeleport
+TeleportSection:NewTextBox("PlayerName", "Enter player name full name tho", function(name)
+    playerToTeleport = name
+end)
+
+TeleportSection:NewButton("Teleport", "Teleports to the entered player", function()
+    local targetPlayer = game.Players:FindFirstChild(playerToTeleport)
+    if targetPlayer then
+        local player = game.Players.LocalPlayer
+        local humanoid = player.Character and player.Character:FindFirstChild("Humanoid")
+        if humanoid then
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            wait(0.1)
+            player.Character:SetPrimaryPartCFrame(targetPlayer.Character.HumanoidRootPart.CFrame)
+        end
+    else
+        print("Player not found!")
+    end
+end)
+
 wait(3.5)
 Script3Section:NewButton("noclip made by tx", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Idkhello/main/noclip.lua"))()
