@@ -1,69 +1,4 @@
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")print ("error")
-print ("error")
-print ("error")print ("error")
-print ("error")
-print ("error")print ("error")
-print ("error")
-print ("error")print ("error")
-print ("error")
-print ("error")print ("error")
-print ("error")print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
-print ("error")
+
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "RoundedGUI"
@@ -163,7 +98,8 @@ game.StarterGui:SetCore("SendNotification", {
 
 
   })
-wait(1)
+
+
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "TX Hub"
@@ -171,7 +107,7 @@ screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
 
 local guiFrame = Instance.new("Frame")
-guiFrame.Name = "TX Hub Frame"
+guiFrame.Name = "TX Hub"
 guiFrame.Size = UDim2.new(0.2, 0, 0.5, 0)
 guiFrame.Position = UDim2.new(0.7, 0, 0.0, -guiFrame.Size.Y.Offset/2)
 guiFrame.BackgroundTransparency = 1
@@ -324,51 +260,7 @@ end
 game.Players.PlayerAdded:Connect(updatePlayerCount)
 game.Players.PlayerRemoving:Connect(updatePlayerCount)
 
-local mainButton = Instance.new("TextButton")
-mainButton.Name = "MainButton"
-mainButton.Text = "Main"
-mainButton.Font = Enum.Font.SourceSansBold
-mainButton.TextColor3 = Color3.new(1, 1, 1)
-mainButton.TextScaled = true
-mainButton.Parent = guiFrame
 
-local function showSection(section)
-    for _, child in ipairs(guiFrame:GetChildren()) do
-        if child:IsA("Frame") and child ~= mainSection then
-            child.Visible = false
-        end
-    end
-    section.Visible = true
-end
-
-showSection(mainSection)
-
-mainButton.MouseButton1Click:Connect(function()
-    showSection(mainSection)
-end)
-
-if game:GetService("UserInputService").TouchEnabled then
-    local touchStartPos
-    local guiStartPos
-
-    guiFrame.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.Touch then
-            touchStartPos = input.Position
-            guiStartPos = guiFrame.Position
-        end
-    end)
-
-    guiFrame.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.Touch then
-            local touchDelta = input.Position - touchStartPos
-            guiFrame.Position = guiStartPos + UDim2.new(0, touchDelta.X, 0, touchDelta.Y)
-        end
-    end)
-end
-
-game.Players.LocalPlayer.Character.Humanoid.Died:Connect(function()
-    screenGui.Enabled = true
-end)
 
 Wait (1)
 game.StarterGui:SetCore("SendNotification", {
@@ -389,127 +281,7 @@ game.StarterGui:SetCore("SendNotification", {
 
 
 })
-Wait (1)
 
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "gui has an error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "2nd error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "2nd error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title =  "error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title =  "error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title =  "error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title =  "error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title =  "error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title =  "error pls wait";
-
-    Text = "";
-
-
-})
-
-Wait (0.1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title =  "error pls wait";
-
-    Text = "nah just fucking with you";
-
-
-})
-
-
-Wait (0.9)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "........ your still here";
-
-    Text = "";
-
-
-})
 
 Wait (1.4)
 game.StarterGui:SetCore("SendNotification", {
