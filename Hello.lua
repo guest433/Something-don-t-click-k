@@ -232,12 +232,13 @@ fpsLabel.TextColor3 = Color3.new(1, 1, 1)
 fpsLabel.TextScaled = true
 fpsLabel.Parent = mainSection
 
+while true (3) do
 local function updateFPS()
     fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
 end
 
 game:GetService("RunService").RenderStepped:Connect(updateFPS)
-
+end)
 
 local playerCountLabel = Instance.new("TextLabel")
 playerCountLabel.Name = "PlayerCount"
