@@ -143,11 +143,13 @@ minimizeButton.Parent = guiFrame
 
 local miniGuiFrame = Instance.new("Frame")
 miniGuiFrame.Name = "MiniGuiFrame"
-miniGuiFrame.Size = UDim2.new(0.1, 0, 0.2, 0)
+miniGuiFrame.Size = UDim2.new(0.3, 0, 0.3, 0)
 miniGuiFrame.Position = UDim2.new(0, 0, 0, 20)
 miniGuiFrame.BackgroundTransparency = 1
 miniGuiFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 miniGuiFrame.BorderSizePixel = 0
+miniGuiFrame.Active = true
+miniGuiFrame.Draggable =true
 miniGuiFrame.Parent = screenGui
 
 local plusButton = Instance.new("TextButton")
@@ -232,13 +234,14 @@ fpsLabel.TextColor3 = Color3.new(1, 1, 1)
 fpsLabel.TextScaled = true
 fpsLabel.Parent = mainSection
 
-while true (3) do
+
+
 local function updateFPS()
-    fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
+    fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait() * 4)
 end
 
 game:GetService("RunService").RenderStepped:Connect(updateFPS)
-end)
+
 
 local playerCountLabel = Instance.new("TextLabel")
 playerCountLabel.Name = "PlayerCount"
@@ -435,7 +438,7 @@ local gamesSectionQ = games:NewSection("Q")
 local gamesSectionR = games:NewSection("R")
 
 local gamesSectionS = games:NewSection("S")
-gamesSection:NewButton("stand awakening", "", function()
+gamesSectionS:NewButton("stand awakening", "", function()
 loadstring(Game:HttpGet("https://pastebin.com/raw/p2LPDjzf",true))()
 end)
 
@@ -456,7 +459,7 @@ local gamesSection = games:NewSection("X")
 local gamesSection = games:NewSection("Y")
 local gamesSection = games:NewSection("Z")
 
-local Script2= Window:NewTab("hubs")
+local Script2= Window:NewTab("Script hubs")
 local Script2Section = Script2:NewSection("hubs")
 
 Script2Section:NewButton("gigachad hub", "", function()
@@ -530,7 +533,7 @@ Script3Section:NewButton("noclip made by tx", "", function()
 local Script7= Window:NewTab("make your own script")
 local Script7Section= Script7:NewSection("")
 
-ScriptSection:NewButton("darkdexv3", "", function()
+Script7Section:NewButton("darkdexv3", "", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
