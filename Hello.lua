@@ -26,7 +26,7 @@ local changeframename1 = Instance.new("ImageButton")
 changeframename1.Size = UDim2.new(0, 80, 0, 80)
 changeframename1.Position = UDim2.new(0, 0, 0, 0) 
 changeframename1.BorderSizePixel = 0
-changeframename1.Image = "rbxassetid://14859144281"
+changeframename1.Image = "rbxassetid://16253406239"
 changeframename1.ScaleType = Enum.ScaleType.Stretch
 changeframename1.Parent = changeframename
 changeframename1.MouseButton1Click:Connect(function()
@@ -43,13 +43,13 @@ textLabel.BackgroundTransparency = 1
 textLabel.Position = UDim2.new(0, 8, 0, 10)
 textLabel.Size = UDim2.new(0, 480, 0, 160)
 textLabel.Font = Enum.Font.SourceSans
-textLabel.TextSize = 24
-textLabel.TextColor3 = Color3.new(1, 0, 0)
+textLabel.TextSize = 23
+textLabel.TextColor3 = Color3.new(1, 1, 1)
 textLabel.TextWrapped = true
 
 local text = "made by TX hub I've forgot how do I do this. this script is 4 months old when I was younger and I just adjust some and change name but not the logo of something "
 
-local speed = 0.07
+local speed = 0.06
 local soundId = "rbxassetid://827313405"
 
 local sound = Instance.new("Sound")
