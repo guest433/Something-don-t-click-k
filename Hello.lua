@@ -237,7 +237,7 @@ fpsLabel.Parent = mainSection
 
 
 local function updateFPS()
-    fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait() * 4)
+    fpsLabel.Text = "FPS: " .. math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
 end
 
 game:GetService("RunService").RenderStepped:Connect(updateFPS)
