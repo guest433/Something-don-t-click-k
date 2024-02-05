@@ -373,7 +373,7 @@ print(successfullylodedthescript)
 
 local gamesSectionB = games:NewSection("B")
 
-gamesSection:NewButton("f hub99 break in 2", "", function()
+gamesSectionB:NewButton("f hub99 break in 2", "", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/Hide/main/Break%20in%202"))()
 end)
 
