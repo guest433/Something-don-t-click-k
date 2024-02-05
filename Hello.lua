@@ -316,9 +316,9 @@ game.StarterGui:SetCore("SendNotification", {
 
 wait(0.8)
 local function callback(Text)
- if Text == "no" then
+ if Text == "yes" then
   screenGui.Enabled = false
-elseif Text == ("yes") then
+elseif Text == ("no") then
  print ("ok")
  end
 end
@@ -525,11 +525,11 @@ end)
 
 
 local playerToTeleport
-TeleportSection:NewTextBox("PlayerName", "Enter player name full name tho", function(name)
+ScriptSection:NewTextBox("PlayerName", "Enter player name full name tho", function(name)
     playerToTeleport = name
 end)
 
-TeleportSection:NewButton("Teleport", "Teleports to the entered player", function()
+ScriptSection:NewButton("Teleport", "Teleports to the entered player", function()
     local targetPlayer = game.Players:FindFirstChild(playerToTeleport)
     if targetPlayer then
         local player = game.Players.LocalPlayer
