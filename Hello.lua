@@ -561,6 +561,7 @@ end)
 Script7Section:NewButton("simple spy", "", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 end)
+
 Script7Section:NewButton("mobile simple spy", "mobile simple spy not working I think ", function()
     
 end)
