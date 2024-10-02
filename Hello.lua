@@ -1,44 +1,38 @@
-
-
 local gui = Instance.new("ScreenGui")
 gui.Name = "RoundedGUI"
 gui.Parent = game.CoreGui
 
-local changeframename = Instance.new("Frame")
-changeframename.Size = UDim2.new(0, 500, 0, 200)
-changeframename.Position = UDim2.new(0.5, -250, 0.8, -100) 
-changeframename.BackgroundColor3 = Color3.new(0, 0, 0)
-changeframename.BorderColor3 = Color3.fromRGB(0, 0, 0) 
-changeframename.BorderSizePixel = 3
-changeframename.Active = true
-changeframename.Draggable = true
-changeframename.Parent = gui
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 500, 0, 200)
+mainFrame.Position = UDim2.new(0.5, -250, 0.8, -100)
+mainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+mainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+mainFrame.BorderSizePixel = 3
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = gui
 
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 10)
-corner.Parent = changeframename
+corner.Parent = mainFrame
 
-local corner2 = Instance.new("UICorner")
-corner2.CornerRadius = UDim.new(0, 10)
-corner2.Parent = changeframename
-
-local changeframename1 = Instance.new("ImageButton")
-changeframename1.Size = UDim2.new(0, 80, 0, 80)
-changeframename1.Position = UDim2.new(0, 0, 0, 0) 
-changeframename1.BorderSizePixel = 0
-changeframename1.Image = "rbxassetid://16253406239"
-changeframename1.ScaleType = Enum.ScaleType.Stretch
-changeframename1.Parent = changeframename
-changeframename1.MouseButton1Click:Connect(function()
-    print("Button clicked!")
+local imageButton = Instance.new("ImageButton")
+imageButton.Size = UDim2.new(0, 80, 0, 80)
+imageButton.Position = UDim2.new(0, 0, 0, 0)
+imageButton.BorderSizePixel = 0
+imageButton.Image = "rbxassetid://16253406239"
+imageButton.ScaleType = Enum.ScaleType.Stretch
+imageButton.Parent = mainFrame
+imageButton.MouseButton1Click:Connect(function()
+    print("Button clicked")
 end)
 
-local corner3 = Instance.new("UICorner") 
-corner3.CornerRadius = UDim.new(0, 10) 
-corner3.Parent = changeframename1
+local buttonCorner = Instance.new("UICorner")
+buttonCorner.CornerRadius = UDim.new(0, 10)
+buttonCorner.Parent = imageButton
 
 local textLabel = Instance.new("TextLabel")
-textLabel.Parent = changeframename
+textLabel.Parent = mainFrame
 textLabel.BackgroundTransparency = 1
 textLabel.Position = UDim2.new(0, 8, 0, 10)
 textLabel.Size = UDim2.new(0, 480, 0, 160)
@@ -47,8 +41,7 @@ textLabel.TextSize = 23
 textLabel.TextColor3 = Color3.new(1, 1, 1)
 textLabel.TextWrapped = true
 
-local text = "made by TX hub I've forgot how do I do this. this script is 4 months old when I was younger and I just adjust some and change name but not the logo of something "
-
+local text = "Made by TX Hub. I forgot how to do this. This script is 4 months old."
 local speed = 0.06
 local soundId = "rbxassetid://827313405"
 
@@ -59,7 +52,8 @@ sound.Volume = 1
 sound.Name = "keyboard"
 sound.Looped = true
 
-for i = 1, #text, 1 do
+-- Typewriting Effect
+for i = 1, #text do
     textLabel.Text = string.sub(text, 1, i)
     if i == 1 then
         sound:Play()
@@ -72,33 +66,16 @@ wait(1)
 gui:Destroy()
 
 wait(2)
-game.StarterGui:SetCore("SendNotification", {
-    
-    Title = "preparing script";
+local notifications = {
+    {Title = "Preparing Script", Text = ""},
+    {Title = "Script Loading", Text = ""},
+    {Title = "Script Loaded, Can Be Moved", Text = ""}
+}
 
-    Text = "";
-
-})
-
-Wait (3)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "script loding";
-
-    Text = "";
-
-})
-
-Wait (1)
-game.StarterGui:SetCore("SendNotification", {
-
-    Title = "script loaded can be movable";
-
-    Text = "";
-
-
-  })
-
+for _, notification in ipairs(notifications) do
+    game.StarterGui:SetCore("SendNotification", notification)
+    wait(1)
+end
 
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 local screenGui = Instance.new("ScreenGui")
@@ -109,13 +86,13 @@ screenGui.Parent = playerGui
 local guiFrame = Instance.new("Frame")
 guiFrame.Name = "TX Hub"
 guiFrame.Size = UDim2.new(0.2, 0, 0.5, 0)
-guiFrame.Position = UDim2.new(0.7, 0, 0.0, -guiFrame.Size.Y.Offset/2)
+guiFrame.Position = UDim2.new(0.7, 0, 0.0, -guiFrame.Size.Y.Offset / 2)
 guiFrame.BackgroundTransparency = 1
 guiFrame.BackgroundColor3 = Color3.new(1, 0, 0)
 guiFrame.BorderSizePixel = 0
 guiFrame.Parent = screenGui
 
--- i add a close button
+-- Close Button
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
 closeButton.Size = UDim2.new(0, 20, 0, 20)
@@ -130,7 +107,7 @@ closeButton.MouseButton1Click:Connect(function()
     screenGui:Destroy()
 end)
 
--- and add a minimize button
+-- Minimize Button
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "MinimizeButton"
 minimizeButton.Size = UDim2.new(0, 20, 0, 20)
@@ -149,7 +126,7 @@ miniGuiFrame.BackgroundTransparency = 1
 miniGuiFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 miniGuiFrame.BorderSizePixel = 0
 miniGuiFrame.Active = true
-miniGuiFrame.Draggable =true
+miniGuiFrame.Draggable = true
 miniGuiFrame.Parent = screenGui
 
 local plusButton = Instance.new("TextButton")
@@ -179,15 +156,14 @@ local mainSection = Instance.new("Frame")
 mainSection.Name = "MainSection"
 mainSection.Size = UDim2.new(1, 0, 1, -50)
 mainSection.BackgroundTransparency = 0.4
+mainSection.BackgroundColor3 = Color3.new(0, 0, 0)
 mainSection.Parent = guiFrame
-mainSection.BackgroundColor3 = Color3.new (0, 0, 0)
-
 
 local avatarLabel = Instance.new("ImageLabel")
 avatarLabel.Name = "Avatar"
 avatarLabel.Size = UDim2.new(0.5, 0, 0.7, 0)
 avatarLabel.Position = UDim2.new(0.25, 0, 0, 0)
-avatarLabel.Image = "http://www.roblox.com/Thumbs/Avatar.ashx?userId=" .. tostring(game.Players.LocalPlayer.UserId) .. "&x=150&y=150" -- dont change 
+avatarLabel.Image = "http://www.roblox.com/Thumbs/Avatar.ashx?userId=" .. tostring(game.Players.LocalPlayer.UserId) .. "&x=150&y=150"
 avatarLabel.Parent = mainSection
 
 local nameLabel = Instance.new("TextLabel")
@@ -575,5 +551,3 @@ wait(10.9)
 local Script9= Window:NewTab("credit")
 local Script9Section= Script9:NewSection("credit by tx")
 
-error ("your account is gonna get hack if you don't change your password by tx jk stay protected")
-warning ("10 sec be fast")
