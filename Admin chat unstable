@@ -56,9 +56,6 @@ end
 -- Disable anti-cheat on script load
 disableAntiCheat()
 
--- Notify Script Loaded
-notify("Script Loaded", "Type " .. commandPrefix .. "cmds in chat for a list of commands.", 5)
-
 -- Reset States on Respawn
 player.CharacterAdded:Connect(function(newCharacter)
     character = newCharacter
@@ -148,109 +145,6 @@ local function disableFreecam()
     notify("Freecam Disabled", "You are back to the default camera.", 5)
 end
 
--- Admin-Like Commands
-local function bringPlayer(targetName)
-    local target = getPlayer(targetName)
-    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-        target.Character.HumanoidRootPart.CFrame = rootPart.CFrame + Vector3.new(0, 3, 0)
-        notify("Bring Command", "Brought " .. target.Name .. " to you.", 3)
-    else
-        notify("Error", "Could not find the player or their HumanoidRootPart.", 3)
-    end
-end
-
-local function killPlayer(targetName)
-    local target = getPlayer(targetName)
-    if target and target.Character and target.Character:FindFirstChild("Humanoid") then
-        target.Character.Humanoid.Health = 0
-        notify("Kill Command", "Killed " .. target.Name .. ".", 3)
-    else
-        notify("Error", "Could not find the player or their Humanoid.", 3)
-    end
-end
-
-local function gotoPlayer(targetName)
-    local target = getPlayer(targetName)
-    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-        rootPart.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
-        notify("Goto Command", "Teleported to " .. target.Name .. ".", 3)
-    else
-        notify("Error", "Could not find the player or their HumanoidRootPart.", 3)
-    end
-end
-
-local function toggleVisibility()
-    for _, part in pairs(character:GetDescendants()) do
-        if part:IsA("BasePart") then
-            part.Transparency = (part.Transparency == 0) and 1 or 0
-        end
-    end
-    notify("Visibility Toggled", "Your character's visibility has been toggled.", 3)
-end
-
--- Chat Command Handler
-player.Chatted:Connect(function(message)
-    if not message:sub(1, 1) == commandPrefix then return end
-    local args = string.split(message:sub(2), " ")
-    local command = args[1]:lower()
-
-    if command == "fly" then
-        enableFly(tonumber(args[2]) or flySpeed)
-    elseif command == "unfly" then
-        disableFly()
-    elseif command == "freecam" then
-        if freecamEnabled then disableFreecam() else enableFreecam() end
-    elseif command == "bring" then
-        if args[2] then 
-            bringPlayer(args[2]) 
-        else 
-            notify("Error", "Please specify a player to bring. Example: ;bring playername", 3) 
-        end
-    elseif command == "kill" then
-        if args[2] then 
-            killPlayer(args[2]) 
-        else 
-            notify("Error", "Please specify a player to kill. Example: ;kill playername", 3) 
-        end
-    elseif command == "goto" then
-        if args[2] then 
-            gotoPlayer(args[2]) 
-        else 
-            notify("Error", "Please specify a player to go to. Example: ;goto playername", 3) 
-        end
-    elseif command == "invs" or command == "invisible" then
-        toggleVisibility()
-    elseif command == "ws" or command == "walkspeed" or command == "speed" then
-        if args[2] and tonumber(args[2]) then
-            humanoid.WalkSpeed = tonumber(args[2])
-            notify("Walk Speed", "Set walk speed to " .. humanoid.WalkSpeed, 3)
-        else
-            notify("Error", "Specify a valid speed. Example: ;ws 30", 3)
-        end
-    elseif command == "rejoin" or command == "rj" then
-        notify("Rejoining", "Teleporting to the current game...", 3)
-        teleportService:Teleport(game.PlaceId)
-    elseif command == "cmds" then
-        local commands = [[
-Available Commands:
-;fly [speed] - Enable flying (speed optional, default: 50)
-;unfly - Disable flying
-;freecam - Toggle freecam mode
-;bring [player] - Bring a player to your location
-;kill [player] - Kill a player
-;goto [player] - Teleport to a player
-;invs or ;invisible - Toggle character visibility
-;ws [speed] - Set walk speed
-;rejoin - Rejoin the current game
-;cmds - List all commands
-]]
-        notify("Commands List", "Check output for full command details.", 5)
-        print(commands)
-    else
-        notify("Unknown Command", "Use ;cmds to see all available commands.", 3)
-    end
-end)
-
 -- Toggle Noclip
 local function toggleNoclip()
     noclipEnabled = not noclipEnabled
@@ -267,20 +161,33 @@ local function toggleNoclip()
     end
 end
 
--- Add to Command Handler
-elseif command == "noclip" then
-    toggleNoclip()
+-- Chat Command Handler
+player.Chatted:Connect(function(message)
+    if not message:sub(1, 1) == commandPrefix then return end
+    local args = string.split(message:sub(2), " ")
+    local command = args[1]:lower()
 
--- Adjust Freecam Speed
-local function adjustFreecamSpeed(newSpeed)
-    freecamSpeed = math.clamp(newSpeed, 0.1, 10)
-    notify("Freecam Speed", "Speed adjusted to " .. tostring(freecamSpeed), 3)
-end
-
--- Add to Command Handler
-elseif command == "freecamspeed" then
-    if args[2] and tonumber(args[2]) then
-        adjustFreecamSpeed(tonumber(args[2]))
+    if command == "fly" then
+        enableFly(tonumber(args[2]) or flySpeed)
+    elseif command == "unfly" then
+        disableFly()
+    elseif command == "freecam" then
+        if freecamEnabled then disableFreecam() else enableFreecam() end
+    elseif command == "noclip" then
+        toggleNoclip()
+    elseif command == "cmds" then
+        local commands = [[
+Available Commands:
+;fly [speed] - Enable flying (speed optional, default: 50)
+;unfly - Disable flying
+;freecam - Toggle freecam mode
+;noclip - Toggle noclip mode
+;cmds - List all commands
+]]
+        notify("Commands List", "Check output for full command details.", 5)
+        print(commands)
     else
-        notify("Error", "Specify a valid speed. Example: ;freecamspeed 2", 3)
+        notify("Unknown Command", "Use ;cmds to see all available commands.", 3)
     end
+end)
+
