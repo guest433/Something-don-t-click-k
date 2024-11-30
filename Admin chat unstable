@@ -158,7 +158,7 @@ local runService = game:GetService("RunService")
 -- Variables
 local flyGui = Instance.new("ScreenGui")
 local flyFrame = Instance.new("Frame")
-local layout = Instance.new("UIListLayout")
+local UIListLayout = Instance.new("UIListLayout")
 local ascendButton = Instance.new("TextButton")
 local descendButton = Instance.new("TextButton")
 local toggleFlyButton = Instance.new("TextButton")
@@ -182,14 +182,14 @@ flyFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 flyFrame.BackgroundTransparency = 0.3
 flyFrame.BorderSizePixel = 0
 flyFrame.Position = UDim2.new(0.1, 0, 0.3, 0)
-flyFrame.Size = UDim2.new(0, 250, 0, 300)
+flyFrame.Size = UDim2.new(0, 250, 0, 350)
 flyFrame.Active = true
 
 -- Layout
-layout.Parent = flyFrame
-layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-layout.SortOrder = Enum.SortOrder.LayoutOrder
-layout.Padding = UDim.new(0, 15)
+UIListLayout.Parent = flyFrame
+UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 10)
 
 -- Helper Function to Create Buttons
 local function createButton(name, parent, text, color)
@@ -225,96 +225,72 @@ speedLabel.Text = "Fly Speed: 50"
 speedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 speedLabel.Font = Enum.Font.SourceSansBold
 speedLabel.TextSize = 16
--- Fly Variables
-local flySpeed = 50
-local speeds = 1
-local isFlying = false
-local tpwalking = false
+
+local speaker = player
+local chr = player.Character or player.CharacterAdded:Wait()
+local hum = chr:FindFirstChildWhichIsA("Humanoid")
 local nowe = false
-local flyConnection
+local speeds = 50
 
--- Start Flying
-local function startFlying()
-    if isFlying then return end
-    isFlying = true
-
-    local character = player.Character or player.CharacterAdded:Wait()
-    local rootPart = character:WaitForChild("HumanoidRootPart")
-
-    -- Create Fly System
-    tpwalking = true
-    flyConnection = runService.Heartbeat:Connect(function()
-        if tpwalking and rootPart then
-            rootPart.CFrame = rootPart.CFrame + rootPart.CFrame.LookVector * flySpeed / 100
-        end
-    end)
-end
-
--- Stop Flying
-local function stopFlying()
-    isFlying = false
-    if flyConnection then
-        flyConnection:Disconnect()
-        flyConnection = nil
-    end
-end
-
--- Toggle Fly
-toggleFlyButton.MouseButton1Click:Connect(function()
-    if isFlying then
-        stopFlying()
-        toggleFlyButton.Text = "Toggle Fly"
+onof.MouseButton1Down:connect(function()
+    if nowe == true then
+        nowe = false
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, true)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, true)
+        speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
     else
-        startFlying()
-        toggleFlyButton.Text = "Stop Flying"
-    end
-end)
-
--- Speed Adjustment
-increaseSpeedButton.MouseButton1Click:Connect(function()
-    flySpeed += 10
-    speedLabel.Text = "Fly Speed: " .. flySpeed
-end)
-
-decreaseSpeedButton.MouseButton1Click:Connect(function()
-    flySpeed = math.max(10, flySpeed - 10)
-    speedLabel.Text = "Fly Speed: " .. flySpeed
-end)
-
--- Ascend and Descend
-ascendButton.MouseButton1Click:Connect(function()
-    if isFlying then
-        local character = player.Character
-        if character then
-            character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+        nowe = true
+        for i = 1, speeds do
+            spawn(function()
+                local hb = game:GetService("RunService").Heartbeat
+                tpwalking = true
+                local chr = player.Character
+                local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+                while tpwalking and hb:Wait() and chr and hum and hum.Parent do
+                    if hum.MoveDirection.Magnitude > 0 then
+                        chr:TranslateBy(hum.MoveDirection)
+                    end
+                end
+            end)
         end
-    end
-end)
-
-descendButton.MouseButton1Click:Connect(function()
-    if isFlying then
-        local character = player.Character
-        if character then
-            character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, -5, 0)
+        chr.Animate.Disabled = true
+        local char = player.Character
+        local hum = char:FindFirstChildOfClass("Humanoid") or char:FindFirstChildOfClass("AnimationController")
+        for _, v in pairs(hum:GetPlayingAnimationTracks()) do
+            v:AdjustSpeed(0)
         end
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, false)
+        speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, false)
+        speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
     end
 end)
-
--- GUI Visibility
-closeGuiButton.MouseButton1Click:Connect(function()
-    flyFrame.Visible = false
-    destroyGuiButton.Visible = true
-end)
-
-destroyGuiButton.MouseButton1Click:Connect(function()
-    flyGui:Destroy()
-end)
-
-minimizeButton.MouseButton1Click:Connect(function()
-    flyFrame.Visible = not flyFrame.Visible
-    minimizeButton.Text = flyFrame.Visible and "Minimize GUI" or "Maximize GUI"
-end)
-           end
+end
 
 -- Chat Command Handler
 player.Chatted:Connect(function(message)
