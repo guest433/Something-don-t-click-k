@@ -150,7 +150,170 @@ local function teleportToGame(playerID, gameID)
 end
 
 local function flyV3()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Idkhello/refs/heads/main/Fly%20aka%20bird"))()
+-- Services
+local player = game.Players.LocalPlayer
+local userInput = game:GetService("UserInputService")
+local runService = game:GetService("RunService")
+
+-- Variables
+local flyGui = Instance.new("ScreenGui")
+local flyFrame = Instance.new("Frame")
+local layout = Instance.new("UIListLayout")
+local ascendButton = Instance.new("TextButton")
+local descendButton = Instance.new("TextButton")
+local toggleFlyButton = Instance.new("TextButton")
+local speedLabel = Instance.new("TextLabel")
+local increaseSpeedButton = Instance.new("TextButton")
+local decreaseSpeedButton = Instance.new("TextButton")
+local closeGuiButton = Instance.new("TextButton")
+local destroyGuiButton = Instance.new("TextButton")
+local minimizeButton = Instance.new("TextButton")
+
+-- Main GUI
+flyGui.Name = "FlyGui"
+flyGui.Parent = player:WaitForChild("PlayerGui")
+flyGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+flyGui.ResetOnSpawn = false
+
+-- Frame
+flyFrame.Name = "FlyFrame"
+flyFrame.Parent = flyGui
+flyFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+flyFrame.BackgroundTransparency = 0.3
+flyFrame.BorderSizePixel = 0
+flyFrame.Position = UDim2.new(0.1, 0, 0.3, 0)
+flyFrame.Size = UDim2.new(0, 250, 0, 300)
+flyFrame.Active = true
+
+-- Layout
+layout.Parent = flyFrame
+layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 15)
+
+-- Helper Function to Create Buttons
+local function createButton(name, parent, text, color)
+    local button = Instance.new("TextButton")
+    button.Name = name
+    button.Parent = parent
+    button.Size = UDim2.new(0, 200, 0, 40)
+    button.BackgroundColor3 = color
+    button.Font = Enum.Font.SourceSansBold
+    button.Text = text
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.TextSize = 16
+    return button
+end
+
+-- Buttons
+ascendButton = createButton("AscendButton", flyFrame, "Fly Up", Color3.fromRGB(50, 150, 250))
+descendButton = createButton("DescendButton", flyFrame, "Fly Down", Color3.fromRGB(50, 150, 250))
+toggleFlyButton = createButton("ToggleFlyButton", flyFrame, "Toggle Fly", Color3.fromRGB(50, 200, 50))
+increaseSpeedButton = createButton("IncreaseSpeedButton", flyFrame, "Increase Speed", Color3.fromRGB(150, 50, 250))
+decreaseSpeedButton = createButton("DecreaseSpeedButton", flyFrame, "Decrease Speed", Color3.fromRGB(150, 50, 250))
+closeGuiButton = createButton("CloseGuiButton", flyFrame, "Close GUI", Color3.fromRGB(250, 50, 50))
+destroyGuiButton = createButton("DestroyGuiButton", flyFrame, "Destroy GUI", Color3.fromRGB(200, 0, 0))
+destroyGuiButton.Visible = false -- Initially Hidden
+minimizeButton = createButton("MinimizeButton", flyFrame, "Minimize GUI", Color3.fromRGB(100, 100, 100))
+
+-- Speed Label
+speedLabel.Name = "SpeedLabel"
+speedLabel.Parent = flyFrame
+speedLabel.Size = UDim2.new(0, 200, 0, 30)
+speedLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+speedLabel.Text = "Fly Speed: 50"
+speedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedLabel.Font = Enum.Font.SourceSansBold
+speedLabel.TextSize = 16
+-- Fly Variables
+local flySpeed = 50
+local speeds = 1
+local isFlying = false
+local tpwalking = false
+local nowe = false
+local flyConnection
+
+-- Start Flying
+local function startFlying()
+    if isFlying then return end
+    isFlying = true
+
+    local character = player.Character or player.CharacterAdded:Wait()
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+
+    -- Create Fly System
+    tpwalking = true
+    flyConnection = runService.Heartbeat:Connect(function()
+        if tpwalking and rootPart then
+            rootPart.CFrame = rootPart.CFrame + rootPart.CFrame.LookVector * flySpeed / 100
+        end
+    end)
+end
+
+-- Stop Flying
+local function stopFlying()
+    isFlying = false
+    if flyConnection then
+        flyConnection:Disconnect()
+        flyConnection = nil
+    end
+end
+
+-- Toggle Fly
+toggleFlyButton.MouseButton1Click:Connect(function()
+    if isFlying then
+        stopFlying()
+        toggleFlyButton.Text = "Toggle Fly"
+    else
+        startFlying()
+        toggleFlyButton.Text = "Stop Flying"
+    end
+end)
+
+-- Speed Adjustment
+increaseSpeedButton.MouseButton1Click:Connect(function()
+    flySpeed += 10
+    speedLabel.Text = "Fly Speed: " .. flySpeed
+end)
+
+decreaseSpeedButton.MouseButton1Click:Connect(function()
+    flySpeed = math.max(10, flySpeed - 10)
+    speedLabel.Text = "Fly Speed: " .. flySpeed
+end)
+
+-- Ascend and Descend
+ascendButton.MouseButton1Click:Connect(function()
+    if isFlying then
+        local character = player.Character
+        if character then
+            character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+        end
+    end
+end)
+
+descendButton.MouseButton1Click:Connect(function()
+    if isFlying then
+        local character = player.Character
+        if character then
+            character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, -5, 0)
+        end
+    end
+end)
+
+-- GUI Visibility
+closeGuiButton.MouseButton1Click:Connect(function()
+    flyFrame.Visible = false
+    destroyGuiButton.Visible = true
+end)
+
+destroyGuiButton.MouseButton1Click:Connect(function()
+    flyGui:Destroy()
+end)
+
+minimizeButton.MouseButton1Click:Connect(function()
+    flyFrame.Visible = not flyFrame.Visible
+    minimizeButton.Text = flyFrame.Visible and "Minimize GUI" or "Maximize GUI"
+end)
            end
 
 -- Chat Command Handler
@@ -161,6 +324,7 @@ player.Chatted:Connect(function(message)
 
     if command == ";fly" or command == ";fv3" then
         flyV3()
+
     elseif command == ";noclip" then
         toggleNoclip()
 
