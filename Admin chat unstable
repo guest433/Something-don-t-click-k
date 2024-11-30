@@ -149,6 +149,10 @@ local function teleportToGame(playerID, gameID)
     end
 end
 
+local function flyV3()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Idkhello/refs/heads/main/Fly%20aka%20bird"))()
+           end
+
 -- Chat Command Handler
 player.Chatted:Connect(function(message)
     if not message:sub(1, 1) == ";" then return end -- Only process commands starting with ";"
@@ -156,8 +160,7 @@ player.Chatted:Connect(function(message)
     local command = args[1]:lower()
 
     if command == ";fly" or command == ";fv3" then
-        notify("Fly Script", "Fly script placeholder. Use a loadstring here.", 5)
-
+        flyV3()
     elseif command == ";noclip" then
         toggleNoclip()
 
