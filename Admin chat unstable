@@ -1,0 +1,286 @@
+-- Services
+local players = game:GetService("Players")
+local userInput = game:GetService("UserInputService")
+local runService = game:GetService("RunService")
+local teleportService = game:GetService("TeleportService")
+local starterGui = game:GetService("StarterGui")
+local camera = workspace.CurrentCamera
+
+-- Local Player
+local player = players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+-- Variables
+local platform = userInput.TouchEnabled and "Mobile" or "PC"
+local flyEnabled, freecamEnabled, noclipEnabled = false, false, false
+local flySpeed, freecamSpeed = 50, 1
+local bodyVelocity, bodyGyro, flyConnection, freecamConnection
+local commandPrefix = ";"
+
+-- Notify Function
+local function notify(title, text, duration)
+    pcall(function()
+        starterGui:SetCore("SendNotification", {
+            Title = title,
+            Text = text,
+            Duration = duration or 5
+        })
+    end)
+end
+
+-- Dynamic Player Finder
+local function getPlayer(targetName)
+    for _, target in pairs(players:GetPlayers()) do
+        if target.Name:lower():sub(1, #targetName) == targetName:lower() then
+            return target
+        end
+    end
+    return nil
+end
+
+-- Anti-Cheat Disabler
+local function disableAntiCheat()
+    pcall(function()
+        for _, v in pairs(workspace:GetDescendants()) do
+            if v:IsA("Script") or v:IsA("LocalScript") then
+                if v.Name:lower():find("anti") or v.Name:lower():find("cheat") then
+                    v.Disabled = true
+                end
+            end
+        end
+    end)
+end
+
+-- Disable anti-cheat on script load
+disableAntiCheat()
+
+-- Notify Script Loaded
+notify("Script Loaded", "Type " .. commandPrefix .. "cmds in chat for a list of commands.", 5)
+
+-- Reset States on Respawn
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = newCharacter:WaitForChild("Humanoid")
+    rootPart = newCharacter:WaitForChild("HumanoidRootPart")
+    
+    -- Reset states
+    if flyEnabled then
+        enableFly(flySpeed)
+    end
+    if freecamEnabled then
+        enableFreecam()
+    end
+end)
+
+-- Flying Functions
+local function enableFly(speed)
+    if flyEnabled then return end
+    flyEnabled = true
+
+    bodyVelocity = Instance.new("BodyVelocity", rootPart)
+    bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+
+    bodyGyro = Instance.new("BodyGyro", rootPart)
+    bodyGyro.MaxTorque = Vector3.new(1e5, 1e5, 1e5)
+    bodyGyro.CFrame = rootPart.CFrame
+
+    flyConnection = runService.RenderStepped:Connect(function()
+        local direction = Vector3.zero
+        local cameraCFrame = camera.CFrame
+
+        if userInput:IsKeyDown(Enum.KeyCode.W) then direction += cameraCFrame.LookVector end
+        if userInput:IsKeyDown(Enum.KeyCode.S) then direction -= cameraCFrame.LookVector end
+        if userInput:IsKeyDown(Enum.KeyCode.A) then direction -= cameraCFrame.RightVector end
+        if userInput:IsKeyDown(Enum.KeyCode.D) then direction += cameraCFrame.RightVector end
+        if userInput:IsKeyDown(Enum.KeyCode.Space) then direction += Vector3.new(0, 1, 0) end
+        if userInput:IsKeyDown(Enum.KeyCode.LeftControl) or userInput:IsKeyDown(Enum.KeyCode.LeftShift) then
+            direction -= Vector3.new(0, 1, 0)
+        end
+
+        if flyEnabled then
+            bodyVelocity.Velocity = direction.Unit * speed
+            bodyGyro.CFrame = camera.CFrame
+        else
+            bodyVelocity.Velocity = Vector3.zero
+        end
+    end)
+
+    notify("Flying Enabled", "Use WASD to move, Space/Ctrl to ascend/descend.", 5)
+end
+
+local function disableFly()
+    if not flyEnabled then return end
+    flyEnabled = false
+    if bodyVelocity then bodyVelocity:Destroy() end
+    if bodyGyro then bodyGyro:Destroy() end
+    if flyConnection then flyConnection:Disconnect() end
+    notify("Flying Disabled", "You are no longer flying.", 3)
+end
+
+-- Freecam Functions
+local function enableFreecam()
+    if freecamEnabled then return end
+    freecamEnabled = true
+    camera.CameraType = Enum.CameraType.Scriptable
+
+    freecamConnection = runService.RenderStepped:Connect(function()
+        local moveDirection = Vector3.zero
+        if userInput:IsKeyDown(Enum.KeyCode.W) then moveDirection += Vector3.new(0, 0, -1) end
+        if userInput:IsKeyDown(Enum.KeyCode.S) then moveDirection += Vector3.new(0, 0, 1) end
+        if userInput:IsKeyDown(Enum.KeyCode.A) then moveDirection += Vector3.new(-1, 0, 0) end
+        if userInput:IsKeyDown(Enum.KeyCode.D) then moveDirection += Vector3.new(1, 0, 0) end
+        if userInput:IsKeyDown(Enum.KeyCode.E) then moveDirection += Vector3.new(0, 1, 0) end
+        if userInput:IsKeyDown(Enum.KeyCode.Q) then moveDirection -= Vector3.new(0, 1, 0) end
+
+        camera.CFrame = camera.CFrame * CFrame.new(moveDirection * freecamSpeed)
+    end)
+
+    notify("Freecam Enabled", "Use WASD to move, R to exit.", 5)
+end
+
+local function disableFreecam()
+    if not freecamEnabled then return end
+    freecamEnabled = false
+    if freecamConnection then freecamConnection:Disconnect() end
+    camera.CameraType = Enum.CameraType.Custom
+    notify("Freecam Disabled", "You are back to the default camera.", 5)
+end
+
+-- Admin-Like Commands
+local function bringPlayer(targetName)
+    local target = getPlayer(targetName)
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        target.Character.HumanoidRootPart.CFrame = rootPart.CFrame + Vector3.new(0, 3, 0)
+        notify("Bring Command", "Brought " .. target.Name .. " to you.", 3)
+    else
+        notify("Error", "Could not find the player or their HumanoidRootPart.", 3)
+    end
+end
+
+local function killPlayer(targetName)
+    local target = getPlayer(targetName)
+    if target and target.Character and target.Character:FindFirstChild("Humanoid") then
+        target.Character.Humanoid.Health = 0
+        notify("Kill Command", "Killed " .. target.Name .. ".", 3)
+    else
+        notify("Error", "Could not find the player or their Humanoid.", 3)
+    end
+end
+
+local function gotoPlayer(targetName)
+    local target = getPlayer(targetName)
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        rootPart.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+        notify("Goto Command", "Teleported to " .. target.Name .. ".", 3)
+    else
+        notify("Error", "Could not find the player or their HumanoidRootPart.", 3)
+    end
+end
+
+local function toggleVisibility()
+    for _, part in pairs(character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Transparency = (part.Transparency == 0) and 1 or 0
+        end
+    end
+    notify("Visibility Toggled", "Your character's visibility has been toggled.", 3)
+end
+
+-- Chat Command Handler
+player.Chatted:Connect(function(message)
+    if not message:sub(1, 1) == commandPrefix then return end
+    local args = string.split(message:sub(2), " ")
+    local command = args[1]:lower()
+
+    if command == "fly" then
+        enableFly(tonumber(args[2]) or flySpeed)
+    elseif command == "unfly" then
+        disableFly()
+    elseif command == "freecam" then
+        if freecamEnabled then disableFreecam() else enableFreecam() end
+    elseif command == "bring" then
+        if args[2] then 
+            bringPlayer(args[2]) 
+        else 
+            notify("Error", "Please specify a player to bring. Example: ;bring playername", 3) 
+        end
+    elseif command == "kill" then
+        if args[2] then 
+            killPlayer(args[2]) 
+        else 
+            notify("Error", "Please specify a player to kill. Example: ;kill playername", 3) 
+        end
+    elseif command == "goto" then
+        if args[2] then 
+            gotoPlayer(args[2]) 
+        else 
+            notify("Error", "Please specify a player to go to. Example: ;goto playername", 3) 
+        end
+    elseif command == "invs" or command == "invisible" then
+        toggleVisibility()
+    elseif command == "ws" or command == "walkspeed" or command == "speed" then
+        if args[2] and tonumber(args[2]) then
+            humanoid.WalkSpeed = tonumber(args[2])
+            notify("Walk Speed", "Set walk speed to " .. humanoid.WalkSpeed, 3)
+        else
+            notify("Error", "Specify a valid speed. Example: ;ws 30", 3)
+        end
+    elseif command == "rejoin" or command == "rj" then
+        notify("Rejoining", "Teleporting to the current game...", 3)
+        teleportService:Teleport(game.PlaceId)
+    elseif command == "cmds" then
+        local commands = [[
+Available Commands:
+;fly [speed] - Enable flying (speed optional, default: 50)
+;unfly - Disable flying
+;freecam - Toggle freecam mode
+;bring [player] - Bring a player to your location
+;kill [player] - Kill a player
+;goto [player] - Teleport to a player
+;invs or ;invisible - Toggle character visibility
+;ws [speed] - Set walk speed
+;rejoin - Rejoin the current game
+;cmds - List all commands
+]]
+        notify("Commands List", "Check output for full command details.", 5)
+        print(commands)
+    else
+        notify("Unknown Command", "Use ;cmds to see all available commands.", 3)
+    end
+end)
+
+-- Toggle Noclip
+local function toggleNoclip()
+    noclipEnabled = not noclipEnabled
+
+    if noclipEnabled then
+        runService.Stepped:Connect(function()
+            if noclipEnabled and humanoid and humanoid:IsDescendantOf(character) then
+                humanoid:ChangeState(Enum.HumanoidStateType.Physics) -- Enables walking through objects
+            end
+        end)
+        notify("Noclip Enabled", "You can now walk through objects.", 3)
+    else
+        notify("Noclip Disabled", "You can no longer walk through objects.", 3)
+    end
+end
+
+-- Add to Command Handler
+elseif command == "noclip" then
+    toggleNoclip()
+
+-- Adjust Freecam Speed
+local function adjustFreecamSpeed(newSpeed)
+    freecamSpeed = math.clamp(newSpeed, 0.1, 10)
+    notify("Freecam Speed", "Speed adjusted to " .. tostring(freecamSpeed), 3)
+end
+
+-- Add to Command Handler
+elseif command == "freecamspeed" then
+    if args[2] and tonumber(args[2]) then
+        adjustFreecamSpeed(tonumber(args[2]))
+    else
+        notify("Error", "Specify a valid speed. Example: ;freecamspeed 2", 3)
+    end
