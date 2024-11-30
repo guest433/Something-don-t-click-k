@@ -5,6 +5,7 @@ local StarterGui = game:GetService("StarterGui")
 local TeleportService = game:GetService("TeleportService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
 
 -- Local Player
 local player = Players.LocalPlayer
@@ -13,10 +14,8 @@ local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
 
 -- Variables
-local flyEnabled = false
-local flySpeed = 50
-local bodyVelocity, bodyGyro
-local flyConnection
+local noclipEnabled = false
+local espEnabled = false
 
 -- Notify Function
 local function notify(title, text, duration)
@@ -27,48 +26,8 @@ local function notify(title, text, duration)
     })
 end
 
--- Enable Flying
-local function enableFly(speed)
-    if flyEnabled then return end
-    flyEnabled = true
-
-    bodyVelocity = Instance.new("BodyVelocity", rootPart)
-    bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
-    bodyVelocity.Velocity = Vector3.zero
-
-    bodyGyro = Instance.new("BodyGyro", rootPart)
-    bodyGyro.MaxTorque = Vector3.new(1e5, 1e5, 1e5)
-    bodyGyro.CFrame = rootPart.CFrame
-
-    flyConnection = RunService.RenderStepped:Connect(function()
-        local direction = Vector3.zero
-        local cameraCFrame = Workspace.CurrentCamera.CFrame
-
-        if UserInputService:IsKeyDown(Enum.KeyCode.W) then direction += cameraCFrame.LookVector end
-        if UserInputService:IsKeyDown(Enum.KeyCode.S) then direction -= cameraCFrame.LookVector end
-        if UserInputService:IsKeyDown(Enum.KeyCode.A) then direction -= cameraCFrame.RightVector end
-        if UserInputService:IsKeyDown(Enum.KeyCode.D) then direction += cameraCFrame.RightVector end
-        if UserInputService:IsKeyDown(Enum.KeyCode.Space) then direction += Vector3.new(0, 1, 0) end
-        if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then direction -= Vector3.new(0, 1, 0) end
-
-        if flyEnabled then
-            bodyVelocity.Velocity = direction.Unit * speed
-            bodyGyro.CFrame = cameraCFrame
-        else
-            bodyVelocity.Velocity = Vector3.zero
-        end
-    end)
-end
-
--- Disable Flying
-local function disableFly()
-    if not flyEnabled then return end
-    flyEnabled = false
-
-    if bodyVelocity then bodyVelocity:Destroy() end
-    if bodyGyro then bodyGyro:Destroy() end
-    if flyConnection then flyConnection:Disconnect() end
-end
+-- Script Loaded Notification
+notify("Script Loaded", "Type ;cmds for available commands.", 5)
 
 -- Set Walk Speed
 local function setWalkSpeed(speed)
@@ -81,85 +40,181 @@ local function setWalkSpeed(speed)
     end
 end
 
--- Rejoin the Game
-local function rejoinGame()
-    notify("Rejoining", "Teleporting to the current game...", 3)
-    TeleportService:Teleport(game.PlaceId)
-end
-
--- List Commands
-local function listCommands()
-    local commands = [[
-Available Commands:
-;fly [speed] - Enable flying with optional speed (default 50)
-;unfly - Disable flying
-;ws, ;speed, ;walkspeed [speed] - Set walk speed
-;rejoin, ;rj - Rejoin the game
-;cmds - List all available commands
-;info - Load external info script
-;playerinfo, ;pi - Displays player information
-    ]]
-    notify("Commands List", "Check the output for full command details.", 5)
-    print(commands)
-end
-
--- Load External Info Script
-local function executeInfo()
-    notify("Executing Info", "Loading external script...", 3)
-    local success, result = pcall(function()
-        return loadstring(game:HttpGet("https://raw.githubusercontent.com/guest433/Something-don-t-click-k/refs/heads/main/starting%20"))()
-    end)
-
-    if success then
-        notify("Info Loaded", "The external script has been executed.", 3)
+-- Set Jump Power
+local function setJumpPower(power)
+    local newPower = tonumber(power)
+    if newPower and newPower > 0 then
+        humanoid.JumpPower = newPower
+        notify("Jump Power Changed", "Jump power set to " .. newPower, 3)
     else
-        notify("Error", "Failed to load script: " .. tostring(result), 5)
+        notify("Error", "Invalid jump power. Example: ;jp 50", 3)
+    end
+end
+
+-- Toggle Noclip
+local function toggleNoclip()
+    noclipEnabled = not noclipEnabled
+
+    if noclipEnabled then
+        RunService.Stepped:Connect(function()
+            if noclipEnabled and character and humanoid then
+                humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+            end
+        end)
+        notify("Noclip Enabled", "You can now walk through walls.", 3)
+    else
+        humanoid:ChangeState(Enum.HumanoidStateType.Running)
+        notify("Noclip Disabled", "Noclip mode is now off.", 3)
+    end
+end
+
+-- Server Hop
+local function serverHop()
+    local serversUrl = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+    local function fetchServers(cursor)
+        local url = serversUrl .. (cursor and "&cursor=" .. cursor or "")
+        local response = HttpService:JSONDecode(game:HttpGet(url))
+        return response
+    end
+
+    local server, cursor
+    repeat
+        local servers = fetchServers(cursor)
+        for _, srv in ipairs(servers.data) do
+            if srv.playing < srv.maxPlayers and srv.id ~= game.JobId then
+                server = srv
+                break
+            end
+        end
+        cursor = servers.nextPageCursor
+    until server or not cursor
+
+    if server then
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, server.id, player)
+    else
+        notify("Server Hop", "No suitable servers found.", 3)
+    end
+end
+
+-- Join Small Server
+local function joinSmallServer()
+    local serversUrl = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+    local function fetchServers(cursor)
+        local url = serversUrl .. (cursor and "&cursor=" .. cursor or "")
+        local response = HttpService:JSONDecode(game:HttpGet(url))
+        return response
+    end
+
+    local smallestServer, cursor
+    repeat
+        local servers = fetchServers(cursor)
+        for _, srv in ipairs(servers.data) do
+            if srv.playing > 0 and srv.id ~= game.JobId then
+                smallestServer = srv
+                break
+            end
+        end
+        cursor = servers.nextPageCursor
+    until smallestServer or not cursor
+
+    if smallestServer then
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, smallestServer.id, player)
+    else
+        notify("Small Server", "No suitable small server found.", 3)
+    end
+end
+
+-- Show Game ID
+local function showGameInfo()
+    notify("Game Info", "Game ID: " .. tostring(game.PlaceId), 5)
+end
+
+-- Get Player ID
+local function getPlayerID(username)
+    local targetPlayer = Players:FindFirstChild(username)
+    if targetPlayer then
+        notify("Player ID", "UserID: " .. targetPlayer.UserId, 5)
+    else
+        notify("Error", "Player not found. Example: ;pi username", 3)
+    end
+end
+
+-- Teleport to Game
+local function teleportToGame(playerID, gameID)
+    if playerID and gameID then
+        TeleportService:TeleportToPlaceInstance(tonumber(gameID), playerID, player)
+        notify("Game Teleporter", "Teleporting to game...", 3)
+    else
+        notify("Error", "Usage: ;gt playerID gameID", 3)
     end
 end
 
 -- Chat Command Handler
 player.Chatted:Connect(function(message)
-    if not message:sub(1, 1) == ";" then return end -- Only process commands with prefix ;
+    if not message:sub(1, 1) == ";" then return end -- Only process commands starting with ";"
     local args = string.split(message, " ")
     local command = args[1]:lower()
 
-    if command == ";fly" then
-        enableFly(tonumber(args[2]) or flySpeed)
-        notify("Fly Enabled", "Flying activated.", 3)
+    if command == ";fly" or command == ";fv3" then
+        notify("Fly Script", "Fly script placeholder. Use a loadstring here.", 5)
 
-    elseif command == ";unfly" then
-        disableFly()
-        notify("Fly Disabled", "You are no longer flying.", 3)
+    elseif command == ";noclip" then
+        toggleNoclip()
 
     elseif command == ";ws" or command == ";speed" or command == ";walkspeed" then
-        if args[2] then
-            setWalkSpeed(args[2])
-        else
-            notify("Error", "Specify a speed. Example: ;ws 30", 3)
-        end
+        setWalkSpeed(args[2])
+
+    elseif command == ";jp" or command == ";jumppower" then
+        setJumpPower(args[2])
 
     elseif command == ";rejoin" or command == ";rj" then
-        rejoinGame()
+        TeleportService:Teleport(game.PlaceId)
+        notify("Rejoining", "Teleporting to the current game...", 3)
 
-    elseif command == ";cmds" then
-        listCommands()
+    elseif command == ";serverhop" or command == ";sh" then
+        serverHop()
 
-    elseif command == ";info" then
-        executeInfo()
+    elseif command == ";smallserver" or command == ";ss" then
+        joinSmallServer()
 
-    elseif command == ";playerinfo" or command == ";pi" then
-        local piScript = loadstring(game:HttpGet("https://https://raw.githubusercontent.com/guest433/Something-don-t-click-k/refs/heads/main/Pi%20player%20infor"))()
-        piScript(args)
+    elseif command == ";gi" or command == ";gameid" then
+        showGameInfo()
+
+    elseif command == ";pi" or command == ";playerid" then
+        if args[2] then
+            getPlayerID(args[2])
+        else
+            notify("Error", "Please provide a username. Example: ;pi username", 3)
+        end
+
+    elseif command == ";gt" or command == ";gameteleporter" then
+        teleportToGame(args[2], args[3])
 
     else
-        notify("Unknown Command", "Use ;cmds to see all commands.", 3)
+        notify("Unknown Command", "Use ;cmds for a list of available commands.", 3)
     end
 end)
 
--- Handle Respawning
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    humanoid = newCharacter:WaitForChild("Humanoid")
-    rootPart = newCharacter:WaitForChild("HumanoidRootPart")
-    disableFly() -- Ensure flying is disabled upon respawn
-end)
+-- List Commands
+local function listCommands()
+    local commands = [[
+Available Commands:
+;fly, ;fv3 - Placeholder for fly script
+;noclip - Toggle noclip mode
+
+;ws, ;speed, ;walkspeed [speed] - Set walk speed
+;jp, ;jumppower [power] - Set jump power
+
+;rejoin, ;rj - Rejoin the current game
+;serverhop, ;sh - Switch to a new server
+;smallserver, ;ss - Join a smaller server
+
+;gi, ;gameid - Display the current game's ID
+;pi, ;playerid [username] - Get the UserID of a player
+;gt, ;gameteleporter [playerID] [gameID] - Teleport to a specific game
+
+Type the commands in chat starting with ";".
+    ]]
+    notify("Commands List", "Check the output for full command details.", 5)
+    print(commands)
+end
