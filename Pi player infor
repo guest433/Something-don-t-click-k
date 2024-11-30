@@ -1,0 +1,44 @@
+-- ;pi Command Script
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+
+-- Notify Function
+local function notify(title, text, duration)
+    StarterGui:SetCore("SendNotification", {
+        Title = title;
+        Text = text;
+        Duration = duration or 3;
+    })
+end
+
+-- Display Player Info Function
+local function displayPlayerInfo(targetPlayer)
+    if not targetPlayer then
+        notify("Error", "Player not found. Example: ;pi playername", 3)
+        return
+    end
+
+    local humanoid = targetPlayer.Character and targetPlayer.Character:FindFirstChildOfClass("Humanoid")
+    local info = string.format(
+        "Name: %s\nTeam: %s\nWalkSpeed: %d\nJumpPower: %d",
+        targetPlayer.Name,
+        tostring(targetPlayer.Team or "None"),
+        humanoid and humanoid.WalkSpeed or 16,
+        humanoid and humanoid.JumpPower or 50
+    )
+    notify("Player Info", info, 5)
+end
+
+-- Main Function for ;pi Command
+return function(args)
+    local targetName = args[2]
+    local targetPlayer
+
+    if targetName then
+        targetPlayer = Players:FindFirstChild(targetName)
+    else
+        targetPlayer = Players.LocalPlayer
+    end
+
+    displayPlayerInfo(targetPlayer)
+end
