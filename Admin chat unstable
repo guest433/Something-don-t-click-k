@@ -1,193 +1,267 @@
 -- Services
-local players = game:GetService("Players")
-local userInput = game:GetService("UserInputService")
-local runService = game:GetService("RunService")
-local teleportService = game:GetService("TeleportService")
-local starterGui = game:GetService("StarterGui")
-local camera = workspace.CurrentCamera
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local StarterGui = game:GetService("StarterGui")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
 
 -- Local Player
-local player = players.LocalPlayer
+local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
 
 -- Variables
-local platform = userInput.TouchEnabled and "Mobile" or "PC"
-local flyEnabled, freecamEnabled, noclipEnabled = false, false, false
-local flySpeed, freecamSpeed = 50, 1
-local bodyVelocity, bodyGyro, flyConnection, freecamConnection
-local commandPrefix = ";"
+local flyEnabled = false
+local espEnabled = false
+local flySpeed = 50
+local bodyVelocity, bodyGyro, flyConnection
 
--- Notify Function
+-- Notification Function
 local function notify(title, text, duration)
-    pcall(function()
-        starterGui:SetCore("SendNotification", {
-            Title = title,
-            Text = text,
-            Duration = duration or 5
-        })
+    StarterGui:SetCore("SendNotification", {
+        Title = title;
+        Text = text;
+        Duration = duration or 3;
+    })
+end
+
+-- ESP Functions
+local function createESP(character, color)
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    if not rootPart then return end
+
+    -- Billboard GUI for Name
+    local billboardGui = Instance.new("BillboardGui")
+    billboardGui.Size = UDim2.new(0, 100, 0, 20)
+    billboardGui.Adornee = rootPart
+    billboardGui.AlwaysOnTop = true
+    billboardGui.StudsOffset = Vector3.new(0, 3, 0)
+    billboardGui.Parent = rootPart
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = character.Name
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.TextScaled = true
+    textLabel.TextColor3 = color
+    textLabel.TextStrokeTransparency = 0.5
+    textLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+    textLabel.Parent = billboardGui
+
+    -- Tracer
+    local tracerPart = Instance.new("Part")
+    tracerPart.Name = "ESP_Tracer"
+    tracerPart.Anchored = true
+    tracerPart.CanCollide = false
+    tracerPart.Transparency = 0.7
+    tracerPart.Size = Vector3.new(0.1, 0.1, 0.1)
+    tracerPart.Color = color
+    tracerPart.CFrame = rootPart.CFrame - Vector3.new(0, 3, 0)
+    tracerPart.Parent = Workspace
+
+    -- Update Tracer Position
+    local connection
+    connection = RunService.RenderStepped:Connect(function()
+        if character.Parent and rootPart then
+            tracerPart.CFrame = CFrame.new(rootPart.Position - Vector3.new(0, 3, 0))
+        else
+            connection:Disconnect()
+            tracerPart:Destroy()
+        end
     end)
 end
 
--- Dynamic Player Finder
-local function getPlayer(targetName)
-    for _, target in pairs(players:GetPlayers()) do
-        if target.Name:lower():sub(1, #targetName) == targetName:lower() then
-            return target
+local function enableESP()
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player.Character then
+            createESP(player.Character, Color3.new(1, 0, 0)) -- Red Color for ESP
         end
+        player.CharacterAdded:Connect(function(character)
+            createESP(character, Color3.new(1, 0, 0))
+        end)
     end
-    return nil
 end
 
--- Anti-Cheat Disabler
-local function disableAntiCheat()
-    pcall(function()
-        for _, v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Script") or v:IsA("LocalScript") then
-                if v.Name:lower():find("anti") or v.Name:lower():find("cheat") then
-                    v.Disabled = true
-                end
-            end
+local function disableESP()
+    for _, part in ipairs(Workspace:GetChildren()) do
+        if part.Name == "ESP_Tracer" then
+            part:Destroy()
         end
-    end)
+    end
 end
 
--- Disable anti-cheat on script load
-disableAntiCheat()
-
--- Reset States on Respawn
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    humanoid = newCharacter:WaitForChild("Humanoid")
-    rootPart = newCharacter:WaitForChild("HumanoidRootPart")
-    
-    -- Reset states
-    if flyEnabled then
-        enableFly(flySpeed)
-    end
-    if freecamEnabled then
-        enableFreecam()
-    end
-end)
-
--- Flying Functions
+-- Fly Functions
 local function enableFly(speed)
     if flyEnabled then return end
     flyEnabled = true
 
     bodyVelocity = Instance.new("BodyVelocity", rootPart)
     bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+    bodyVelocity.Velocity = Vector3.zero
 
     bodyGyro = Instance.new("BodyGyro", rootPart)
     bodyGyro.MaxTorque = Vector3.new(1e5, 1e5, 1e5)
     bodyGyro.CFrame = rootPart.CFrame
 
-    flyConnection = runService.RenderStepped:Connect(function()
+    flyConnection = RunService.RenderStepped:Connect(function()
         local direction = Vector3.zero
-        local cameraCFrame = camera.CFrame
+        local cameraCFrame = workspace.CurrentCamera.CFrame
 
-        if userInput:IsKeyDown(Enum.KeyCode.W) then direction += cameraCFrame.LookVector end
-        if userInput:IsKeyDown(Enum.KeyCode.S) then direction -= cameraCFrame.LookVector end
-        if userInput:IsKeyDown(Enum.KeyCode.A) then direction -= cameraCFrame.RightVector end
-        if userInput:IsKeyDown(Enum.KeyCode.D) then direction += cameraCFrame.RightVector end
-        if userInput:IsKeyDown(Enum.KeyCode.Space) then direction += Vector3.new(0, 1, 0) end
-        if userInput:IsKeyDown(Enum.KeyCode.LeftControl) or userInput:IsKeyDown(Enum.KeyCode.LeftShift) then
-            direction -= Vector3.new(0, 1, 0)
-        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.W) then direction += cameraCFrame.LookVector end
+        if UserInputService:IsKeyDown(Enum.KeyCode.S) then direction -= cameraCFrame.LookVector end
+        if UserInputService:IsKeyDown(Enum.KeyCode.A) then direction -= cameraCFrame.RightVector end
+        if UserInputService:IsKeyDown(Enum.KeyCode.D) then direction += cameraCFrame.RightVector end
+        if UserInputService:IsKeyDown(Enum.KeyCode.Space) then direction += Vector3.new(0, 1, 0) end
+        if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then direction -= Vector3.new(0, 1, 0) end
 
         if flyEnabled then
             bodyVelocity.Velocity = direction.Unit * speed
-            bodyGyro.CFrame = camera.CFrame
+            bodyGyro.CFrame = workspace.CurrentCamera.CFrame
         else
             bodyVelocity.Velocity = Vector3.zero
         end
     end)
-
-    notify("Flying Enabled", "Use WASD to move, Space/Ctrl to ascend/descend.", 5)
 end
 
 local function disableFly()
     if not flyEnabled then return end
     flyEnabled = false
+
     if bodyVelocity then bodyVelocity:Destroy() end
     if bodyGyro then bodyGyro:Destroy() end
     if flyConnection then flyConnection:Disconnect() end
-    notify("Flying Disabled", "You are no longer flying.", 3)
 end
 
--- Freecam Functions
-local function enableFreecam()
-    if freecamEnabled then return end
-    freecamEnabled = true
-    camera.CameraType = Enum.CameraType.Scriptable
+-- Server Hop
+local function serverHop()
+    local api = "https://games.roblox.com/v1/games/"
+    local serversUrl = api .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
 
-    freecamConnection = runService.RenderStepped:Connect(function()
-        local moveDirection = Vector3.zero
-        if userInput:IsKeyDown(Enum.KeyCode.W) then moveDirection += Vector3.new(0, 0, -1) end
-        if userInput:IsKeyDown(Enum.KeyCode.S) then moveDirection += Vector3.new(0, 0, 1) end
-        if userInput:IsKeyDown(Enum.KeyCode.A) then moveDirection += Vector3.new(-1, 0, 0) end
-        if userInput:IsKeyDown(Enum.KeyCode.D) then moveDirection += Vector3.new(1, 0, 0) end
-        if userInput:IsKeyDown(Enum.KeyCode.E) then moveDirection += Vector3.new(0, 1, 0) end
-        if userInput:IsKeyDown(Enum.KeyCode.Q) then moveDirection -= Vector3.new(0, 1, 0) end
+    local function getServers(cursor)
+        local url = serversUrl .. (cursor and "&cursor=" .. cursor or "")
+        local response = game:HttpGet(url)
+        return HttpService:JSONDecode(response)
+    end
 
-        camera.CFrame = camera.CFrame * CFrame.new(moveDirection * freecamSpeed)
-    end)
-
-    notify("Freecam Enabled", "Use WASD to move, R to exit.", 5)
-end
-
-local function disableFreecam()
-    if not freecamEnabled then return end
-    freecamEnabled = false
-    if freecamConnection then freecamConnection:Disconnect() end
-    camera.CameraType = Enum.CameraType.Custom
-    notify("Freecam Disabled", "You are back to the default camera.", 5)
-end
-
--- Toggle Noclip
-local function toggleNoclip()
-    noclipEnabled = not noclipEnabled
-
-    if noclipEnabled then
-        runService.Stepped:Connect(function()
-            if noclipEnabled and humanoid and humanoid:IsDescendantOf(character) then
-                humanoid:ChangeState(Enum.HumanoidStateType.Physics) -- Enables walking through objects
+    local server, nextCursor
+    repeat
+        local servers = getServers(nextCursor)
+        for _, srv in ipairs(servers.data) do
+            if srv.playing < srv.maxPlayers and srv.id ~= game.JobId then
+                server = srv
+                break
             end
-        end)
-        notify("Noclip Enabled", "You can now walk through objects.", 3)
+        end
+        nextCursor = servers.nextPageCursor
+    until server or not nextCursor
+
+    if server then
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, server.id, player)
     else
-        notify("Noclip Disabled", "You can no longer walk through objects.", 3)
+        notify("Server Hop", "No suitable servers found.", 3)
     end
 end
 
--- Chat Command Handler
+-- Join Small Server
+local function joinSmallServer()
+    local api = "https://games.roblox.com/v1/games/"
+    local serversUrl = api .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+
+    local function getServers(cursor)
+        local url = serversUrl .. (cursor and "&cursor=" .. cursor or "")
+        local response = game:HttpGet(url)
+        return HttpService:JSONDecode(response)
+    end
+
+    local smallestServer, nextCursor
+    repeat
+        local servers = getServers(nextCursor)
+        for _, srv in ipairs(servers.data) do
+            if srv.playing > 0 and srv.id ~= game.JobId then
+                smallestServer = srv
+                break
+            end
+        end
+        nextCursor = servers.nextPageCursor
+    until smallestServer or not nextCursor
+
+    if smallestServer then
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, smallestServer.id, player)
+    else
+        notify("Small Server", "No suitable small server found.", 3)
+    end
+end
+
+-- Command Handler
 player.Chatted:Connect(function(message)
-    if not message:sub(1, 1) == commandPrefix then return end
-    local args = string.split(message:sub(2), " ")
+    if not message:sub(1, 1) == ";" then return end -- Only process commands with prefix ";"
+    local args = string.split(message, " ")
     local command = args[1]:lower()
 
-    if command == "fly" then
+    if command == ";fly" then
         enableFly(tonumber(args[2]) or flySpeed)
-    elseif command == "unfly" then
+        notify("Fly Enabled", "Flying activated.", 3)
+
+    elseif command == ";unfly" then
         disableFly()
-    elseif command == "freecam" then
-        if freecamEnabled then disableFreecam() else enableFreecam() end
-    elseif command == "noclip" then
-        toggleNoclip()
-    elseif command == "cmds" then
-        local commands = [[
-Available Commands:
-;fly [speed] - Enable flying (speed optional, default: 50)
-;unfly - Disable flying
-;freecam - Toggle freecam mode
-;noclip - Toggle noclip mode
-;cmds - List all commands
-]]
-        notify("Commands List", "Check output for full command details.", 5)
-        print(commands)
+        notify("Fly Disabled", "You are no longer flying.", 3)
+
+    elseif command == ";ws" or command == ";speed" or command == ";walkspeed" then
+        local speed = tonumber(args[2])
+        if speed then
+            humanoid.WalkSpeed = speed
+            notify("WalkSpeed Changed", "Set to " .. speed, 3)
+        else
+            notify("Error", "Specify a valid speed. Example: ;ws 30", 3)
+        end
+
+    elseif command == ";jp" or command == ";jumppower" then
+        local jumpPower = tonumber(args[2])
+        if jumpPower then
+            humanoid.JumpPower = jumpPower
+            notify("JumpPower Changed", "Set to " .. jumpPower, 3)
+        else
+            notify("Error", "Specify a valid JumpPower. Example: ;jp 50", 3)
+        end
+
+    elseif command == ";goto" then
+        local target = Players:FindFirstChild(args[2])
+        if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+            character:SetPrimaryPartCFrame(target.Character.HumanoidRootPart.CFrame)
+            notify("Teleported", "Teleported to " .. target.Name, 3)
+        else
+            notify("Error", "Player not found or invalid target.", 3)
+        end
+
+    elseif command == ";esp" then
+        espEnabled = not espEnabled
+        if espEnabled then
+            enableESP()
+            notify("ESP Enabled", "All players are now highlighted.", 3)
+        else
+            disableESP()
+            notify("ESP Disabled", "ESP functionality turned off.", 3)
+        end
+
+    elseif command == ";serverhop" then
+        serverHop()
+        notify("Server Hop", "Switching to a new server...", 3)
+
+    elseif command == ";smallserver" then
+        joinSmallServer()
+        notify("Small Server", "Searching for a less populated server...", 3)
+
+    elseif command == ";info" then
+        notify("Info", "This script provides commands like fly, ESP, and server hopping.", 5)
+
+    elseif command == ";cmds" then
+        notify("Commands", "Available commands: ;fly, ;unfly, ;ws, ;jp, ;goto, ;esp, ;serverhop, ;smallserver, ;info.", 5)
+
     else
-        notify("Unknown Command", "Use ;cmds to see all available commands.", 3)
+        notify("Unknown Command", "Use ;cmds for a list of available commands.", 3)
     end
 end)
-
